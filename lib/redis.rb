@@ -2,6 +2,8 @@
 
 require "logger"
 
+require "async"
+require "async/io"
 require "active_support/all"
 require "zeitwerk"
 
@@ -13,16 +15,12 @@ module Redis
       @root ||= Pathname.new(File.expand_path(File.join("..", ".."), __FILE__))
     end
 
-    def options
-      @options ||= Options.new
-    end
-
     def logger
       @logger ||= Logger.new
     end
 
     def setup
-      @loader = Zeitwerk::Loader.for_gem
+      @loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
 
       # Register inflections
       instance_eval(File.read(root.join("config/inflections.rb")))
