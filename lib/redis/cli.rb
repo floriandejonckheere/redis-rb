@@ -19,7 +19,13 @@ module Redis
       parser.parse!(args, into: @options)
     end
 
-    def start; end
+    def start
+      Async do
+        Server
+          .new(options)
+          .start
+      end
+    end
 
     private
 
