@@ -10,6 +10,7 @@ gemspec
 
 group :development do
   gem "climate_control"
+  gem "debug"
   gem "factory_bot"
   gem "ffaker"
   gem "overcommit"
