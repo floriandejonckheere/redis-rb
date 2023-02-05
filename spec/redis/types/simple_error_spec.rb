@@ -7,7 +7,7 @@ RSpec.describe Redis::Types::SimpleError do
 
   let(:pipes) { IO.pipe }
 
-  let(:rsocket) { pipes.first }
+  let(:rsocket) { Redis::Socket.new(pipes.first) }
   let(:wsocket) { pipes.last }
 
   describe "#to_s" do

@@ -26,10 +26,10 @@ module Redis
         # "|" => Attribute,
       }.freeze, T::Hash[T.nilable(String), T.class_of(Redis::Type)],)
 
-      sig { returns(IO) }
+      sig { returns(Socket) }
       attr_reader :socket
 
-      sig { params(socket: IO).void }
+      sig { params(socket: Socket).void }
       def initialize(socket)
         @socket = socket
       end

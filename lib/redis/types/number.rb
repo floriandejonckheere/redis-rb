@@ -17,10 +17,10 @@ module Redis
         ":#{value}\r\n"
       end
 
-      sig { override.params(socket: IO).returns(T.attached_class) }
+      sig { override.params(socket: Socket).returns(T.attached_class) }
       def self.parse(socket)
         new socket
-          .readline
+          .gets
           .chomp
           .to_i
       end

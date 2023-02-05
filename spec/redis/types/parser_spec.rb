@@ -5,7 +5,7 @@ RSpec.describe Redis::Types::Parser do
 
   let(:pipes) { IO.pipe }
 
-  let(:rsocket) { pipes.first }
+  let(:rsocket) { Redis::Socket.new(pipes.first) }
   let(:wsocket) { pipes.last }
 
   describe "#read" do

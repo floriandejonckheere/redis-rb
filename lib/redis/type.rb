@@ -17,7 +17,7 @@ module Redis
     sig { abstract.returns(String) }
     def to_s; end
 
-    sig { abstract.params(socket: IO).returns(T.attached_class) }
+    sig { abstract.params(socket: Socket).returns(T.attached_class) }
     def self.parse(socket); end
   end
 end

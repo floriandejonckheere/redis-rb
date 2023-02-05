@@ -17,10 +17,10 @@ module Redis
         "*#{value.count}\r\n#{value.map(&:to_s).join}"
       end
 
-      sig { override.params(socket: IO).returns(T.attached_class) }
+      sig { override.params(socket: Socket).returns(T.attached_class) }
       def self.parse(socket)
         # Read number of elements in array
-        count = socket.readline.chomp.to_i
+        count = socket.gets.chomp.to_i
 
         elements = ::Array.new(count) do
           Parser
