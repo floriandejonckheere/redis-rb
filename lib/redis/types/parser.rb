@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+# typed: true
 
 module Redis
   module Types
     class Parser
-      TYPES = {
+      extend T::Sig
+
+      TYPES = T.let({
         # Simple types
         # "$" => BlobString,
         "+" => SimpleString,
@@ -21,14 +24,17 @@ module Redis
         # "%" => Map,
         # "~" => Set,
         # "|" => Attribute,
-      }.freeze
+      }.freeze, T::Hash[T.nilable(String), T.class_of(Redis::Type)],)
 
+      sig { returns(IO) }
       attr_reader :socket
 
+      sig { params(socket: IO).void }
       def initialize(socket)
         @socket = socket
       end
 
+      sig { returns(Redis::Type) }
       def read
         type = socket.read(1)
 

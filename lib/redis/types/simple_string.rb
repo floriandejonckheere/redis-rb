@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+# typed: true
 
 module Redis
   module Types
-    class SimpleString
+    class SimpleString < Type
       attr_reader :message
 
+      sig { params(message: String).void }
       def initialize(message)
         @message = message
       end
