@@ -42,7 +42,7 @@ module Redis
           .fetch(type)
           .parse(socket)
       rescue KeyError => e
-        SimpleError.new("unknown command '#{e.key}'")
+        raise ArgumentError, "unknown type '#{e.key}'"
       end
     end
   end
