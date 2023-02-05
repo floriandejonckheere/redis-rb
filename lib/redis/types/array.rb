@@ -22,7 +22,7 @@ module Redis
         # Read number of elements in array
         count = socket.readline.chomp.to_i
 
-        elements = count.times.map do
+        elements = ::Array.new(count) do
           Parser
             .new(socket)
             .read
