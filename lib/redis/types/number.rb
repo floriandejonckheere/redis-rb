@@ -8,7 +8,7 @@ module Redis
       attr_reader :value
 
       sig { params(value: Integer).void }
-      def initialize(value)
+      def initialize(value) # rubocop:disable Lint/MissingSuper
         @value = value
       end
 
