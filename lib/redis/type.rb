@@ -10,7 +10,7 @@ module Redis
       raise NotImplementedError
     end
 
-    sig { params(socket: IO).returns(Redis::Type) }
+    sig { params(socket: IO).returns(T.attached_class) }
     def self.parse(socket)
       raise NotImplementedError
     end

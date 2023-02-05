@@ -16,7 +16,7 @@ module Redis
         "-ERR #{message}\r\n"
       end
 
-      sig { params(socket: IO).returns(Redis::Types::SimpleError) }
+      sig { params(socket: IO).returns(T.attached_class) }
       def self.parse(socket)
         new socket
           .readline

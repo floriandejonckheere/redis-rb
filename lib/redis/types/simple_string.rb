@@ -16,7 +16,7 @@ module Redis
         "+#{message}\r\n"
       end
 
-      sig { params(socket: IO).returns(Redis::Types::SimpleString) }
+      sig { params(socket: IO).returns(T.attached_class) }
       def self.parse(socket)
         new socket
           .readline
