@@ -14,7 +14,7 @@ module Redis
       info "Starting server on #{options[:host]}:#{options[:port]}"
 
       server.accept do |socket|
-        Client
+        Handler
           .new(socket)
           .start
       end

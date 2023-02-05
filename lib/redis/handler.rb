@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Redis
-  class Client
+  class Handler
     attr_reader :socket
 
     def initialize(socket)
