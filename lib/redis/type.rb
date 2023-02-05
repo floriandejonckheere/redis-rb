@@ -4,6 +4,9 @@
 module Redis
   class Type
     extend T::Sig
+    extend T::Helpers
+
+    abstract!
 
     attr_reader :value
 
@@ -11,14 +14,10 @@ module Redis
       @value = value
     end
 
-    sig { returns(String) }
-    def to_s
-      raise NotImplementedError
-    end
+    sig { abstract.returns(String) }
+    def to_s; end
 
-    sig { params(socket: IO).returns(T.attached_class) }
-    def self.parse(socket)
-      raise NotImplementedError
-    end
+    sig { abstract.params(socket: IO).returns(T.attached_class) }
+    def self.parse(socket); end
   end
 end

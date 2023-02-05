@@ -12,12 +12,12 @@ module Redis
         @value = value
       end
 
-      sig { returns(String) }
+      sig { override.returns(String) }
       def to_s
         "+#{value}\r\n"
       end
 
-      sig { params(socket: IO).returns(T.attached_class) }
+      sig { override.params(socket: IO).returns(T.attached_class) }
       def self.parse(socket)
         new socket
           .readline

@@ -12,12 +12,12 @@ module Redis
         @value = value
       end
 
-      sig { returns(String) }
+      sig { override.returns(String) }
       def to_s
         "*#{value.count}\r\n#{value.map(&:to_s).join}"
       end
 
-      sig { params(socket: IO).returns(T.attached_class) }
+      sig { override.params(socket: IO).returns(T.attached_class) }
       def self.parse(socket)
         # Read number of elements in array
         count = socket.readline.chomp.to_i
