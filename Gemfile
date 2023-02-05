@@ -41,6 +41,10 @@ group :development do
   # Display rich diffs in RSpec
   gem "super_diff"
 
+  # Ruby static type checker
+  gem "sorbet", "~> 0.5"
+  gem "tapioca", require: false
+
   # Change time at runtime
   gem "timecop"
 end
