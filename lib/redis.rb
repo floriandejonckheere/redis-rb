@@ -5,6 +5,7 @@ require "logger"
 require "async"
 require "async/io"
 require "active_support/all"
+require "sorbet-runtime"
 require "zeitwerk"
 
 module Redis
