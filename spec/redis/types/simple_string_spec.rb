@@ -5,7 +5,10 @@ RSpec.describe Redis::Types::SimpleString do
 
   let(:message) { "hello world" }
 
-  let(:socket) { StringIO.new }
+  let(:pipes) { IO.pipe }
+
+  let(:rsocket) { pipes.first }
+  let(:wsocket) { pipes.last }
 
   describe "#to_s" do
     it "serializes the type" do
@@ -15,10 +18,9 @@ RSpec.describe Redis::Types::SimpleString do
 
   describe ".parse" do
     it "parses the type" do
-      socket.write("hello world\r\n")
-      socket.rewind
+      wsocket.write("hello world\r\n")
 
-      type = described_class.parse(socket)
+      type = described_class.parse(rsocket)
 
       expect(type.message).to eq "hello world"
     end

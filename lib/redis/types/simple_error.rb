@@ -11,10 +11,12 @@ module Redis
         @message = message
       end
 
+      sig { returns(String) }
       def to_s
         "-ERR #{message}\r\n"
       end
 
+      sig { params(socket: IO).returns(Redis::Types::SimpleError) }
       def self.parse(socket)
         new socket
           .readline
