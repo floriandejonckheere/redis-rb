@@ -10,4 +10,6 @@ module CoreExt
   end
 end
 
-Object.include(CoreExt::Object)
+class Object
+  include CoreExt::Object
+end
