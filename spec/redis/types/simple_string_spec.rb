@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Redis::Types::SimpleString do
-  subject(:type) { described_class.new(message) }
+  subject(:type) { build(:simple_string, message:) }
 
   let(:message) { "hello world" }
 

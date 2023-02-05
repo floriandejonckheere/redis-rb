@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Redis::Types::SimpleError do
-  subject(:type) { described_class.new(message) }
+  subject(:type) { build(:simple_error, message:) }
 
   let(:message) { "unknown command 'X'" }
 
