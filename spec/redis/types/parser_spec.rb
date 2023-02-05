@@ -9,6 +9,12 @@ RSpec.describe Redis::Types::Parser do
   let(:wsocket) { pipes.last }
 
   describe "#read" do
+    it "parses blob strings" do
+      wsocket.write("$11\r\nhello world\r\n")
+
+      expect(parser.read).to be_a Redis::Types::BlobString
+    end
+
     it "parses simple error strings" do
       wsocket.write("+hello world\r\n")
 

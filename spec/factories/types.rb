@@ -4,6 +4,10 @@ FactoryBot.define do
   factory :type, class: "Redis::Type" do
     initialize_with { new(value) }
 
+    factory :blob_string, class: "Redis::Types::BlobString" do
+      value { "hello world" }
+    end
+
     factory :simple_string, class: "Redis::Types::SimpleString" do
       value { "hello world" }
     end

@@ -8,7 +8,7 @@ module Redis
 
       TYPES = T.let({
         # Simple types
-        # "$" => BlobString,
+        "$" => BlobString,
         "+" => SimpleString,
         "-" => SimpleError,
         ":" => Number,
