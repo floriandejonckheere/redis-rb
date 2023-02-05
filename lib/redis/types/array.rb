@@ -5,16 +5,16 @@ module Redis
   module Types
     class Array < Type
       sig { returns(T::Array[Redis::Type]) }
-      attr_reader :elements
+      attr_reader :value
 
-      sig { params(elements: T::Array[Redis::Type]).void }
-      def initialize(elements)
-        @elements = elements
+      sig { params(value: T::Array[Redis::Type]).void }
+      def initialize(value)
+        @value = value
       end
 
       sig { returns(String) }
       def to_s
-        "*#{elements.count}\r\n#{elements.map(&:to_s).join}"
+        "*#{value.count}\r\n#{value.map(&:to_s).join}"
       end
 
       sig { params(socket: IO).returns(T.attached_class) }

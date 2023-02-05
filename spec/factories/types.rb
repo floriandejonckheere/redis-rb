@@ -1,21 +1,19 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :simple_string, class: "Redis::Types::SimpleString" do
-    initialize_with { new(message) }
+  factory :type, class: "Redis::Type" do
+    initialize_with { new(value) }
 
-    message { "hello world" }
-  end
+    factory :simple_string, class: "Redis::Types::SimpleString" do
+      value { "hello world" }
+    end
 
-  factory :simple_error, class: "Redis::Types::SimpleError" do
-    initialize_with { new(message) }
+    factory :simple_error, class: "Redis::Types::SimpleError" do
+      value { "hello world" }
+    end
 
-    message { "hello world" }
-  end
-
-  factory :array, class: "Redis::Types::Array" do
-    initialize_with { new(elements) }
-
-    elements { [build(:simple_string), build(:simple_error)] }
+    factory :array, class: "Redis::Types::Array" do
+      value { [build(:simple_string), build(:simple_error)] }
+    end
   end
 end

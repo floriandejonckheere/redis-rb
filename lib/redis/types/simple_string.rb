@@ -4,16 +4,17 @@
 module Redis
   module Types
     class SimpleString < Type
-      attr_reader :message
+      sig { returns(String) }
+      attr_reader :value
 
-      sig { params(message: String).void }
-      def initialize(message)
-        @message = message
+      sig { params(value: String).void }
+      def initialize(value)
+        @value = value
       end
 
       sig { returns(String) }
       def to_s
-        "+#{message}\r\n"
+        "+#{value}\r\n"
       end
 
       sig { params(socket: IO).returns(T.attached_class) }

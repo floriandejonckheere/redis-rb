@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Redis::Types::Array do
-  subject(:type) { build(:array, elements:) }
+  subject(:type) { build(:array, value:) }
 
-  let(:elements) { [build(:simple_string, message: "one"), build(:simple_string, message: "two")] }
+  let(:value) { [build(:simple_string, value: "one"), build(:simple_string, value: "two")] }
 
   let(:pipes) { IO.pipe }
 
@@ -22,13 +22,13 @@ RSpec.describe Redis::Types::Array do
 
       type = described_class.parse(rsocket)
 
-      one, two = type.elements
+      one, two = type.value
 
       expect(one).to be_a Redis::Types::SimpleString
-      expect(one.message).to eq "one"
+      expect(one.value).to eq "one"
 
       expect(two).to be_a Redis::Types::SimpleString
-      expect(two.message).to eq "two"
+      expect(two.value).to eq "two"
     end
   end
 end

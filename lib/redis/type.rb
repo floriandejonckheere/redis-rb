@@ -5,6 +5,12 @@ module Redis
   class Type
     extend T::Sig
 
+    attr_reader :value
+
+    def initialize(value)
+      @value = value
+    end
+
     sig { returns(String) }
     def to_s
       raise NotImplementedError

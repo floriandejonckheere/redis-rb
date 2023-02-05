@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 RSpec.describe Redis::Types::SimpleError do
-  subject(:type) { build(:simple_error, message:) }
+  subject(:type) { build(:simple_error, value:) }
 
-  let(:message) { "unknown command 'X'" }
+  let(:value) { "unknown command 'X'" }
 
   let(:pipes) { IO.pipe }
 
@@ -22,7 +22,7 @@ RSpec.describe Redis::Types::SimpleError do
 
       type = described_class.parse(rsocket)
 
-      expect(type.message).to eq "unknown command 'X'"
+      expect(type.value).to eq "unknown command 'X'"
     end
   end
 end
