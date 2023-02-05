@@ -21,6 +21,12 @@ RSpec.describe Redis::Types::Parser do
       expect(parser.read).to be_a Redis::Types::SimpleError
     end
 
+    it "parses arrays" do
+      wsocket.write("*2\r\n+one\r\n+two\r\n")
+
+      expect(parser.read).to be_a Redis::Types::Array
+    end
+
     it "returns a simple error for unknown types" do
       wsocket.write("&ERR unknown command 'X'\r\n")
 

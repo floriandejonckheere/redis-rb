@@ -12,4 +12,10 @@ FactoryBot.define do
 
     message { "hello world" }
   end
+
+  factory :array, class: "Redis::Types::Array" do
+    initialize_with { new(elements) }
+
+    elements { [build(:simple_string), build(:simple_error)] }
+  end
 end

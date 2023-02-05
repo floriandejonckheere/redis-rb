@@ -20,7 +20,7 @@ module Redis
         # "(" => BigNumber,
 
         # Aggregate types
-        # "*" => Array,
+        "*" => Array,
         # "%" => Map,
         # "~" => Set,
         # "|" => Attribute,
