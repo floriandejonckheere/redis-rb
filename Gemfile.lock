@@ -61,6 +61,7 @@ GEM
     patience_diff (1.2.0)
       optimist (~> 3.0)
     rainbow (3.1.1)
+    rake (13.0.6)
     rbi (0.0.16)
       ast
       parser (>= 2.6.4.0)
@@ -162,6 +163,7 @@ DEPENDENCIES
   factory_bot
   ffaker
   overcommit
+  rake
   redis!
   rspec
   rubocop

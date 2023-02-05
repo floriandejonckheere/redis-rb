@@ -24,6 +24,9 @@ group :development do
   # Git hooks
   gem "overcommit"
 
+  # Task runner
+  gem "rake"
+
   # Behaviour-driven testing
   gem "rspec"
 
