@@ -11,7 +11,7 @@ module Redis
         # "$" => BlobString,
         "+" => SimpleString,
         "-" => SimpleError,
-        # ":" => Number,
+        ":" => Number,
         # "_" => Null,
         # "," => Double,
         # "#" => Boolean,

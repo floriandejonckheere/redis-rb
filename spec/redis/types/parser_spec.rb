@@ -21,6 +21,12 @@ RSpec.describe Redis::Types::Parser do
       expect(parser.read).to be_a Redis::Types::SimpleError
     end
 
+    it "parses numbers" do
+      wsocket.write(":1\r\n")
+
+      expect(parser.read).to be_a Redis::Types::Number
+    end
+
     it "parses arrays" do
       wsocket.write("*2\r\n+one\r\n+two\r\n")
 

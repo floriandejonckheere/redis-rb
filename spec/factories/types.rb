@@ -12,6 +12,10 @@ FactoryBot.define do
       value { "hello world" }
     end
 
+    factory :number, class: "Redis::Types::Number" do
+      value { 1 }
+    end
+
     factory :array, class: "Redis::Types::Array" do
       value { [build(:simple_string), build(:simple_error)] }
     end
