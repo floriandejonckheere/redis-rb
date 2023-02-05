@@ -1,11 +1,16 @@
 # frozen_string_literal: true
+# typed: true
 
 require "async/io/tcp_socket"
 
 module Redis
   class Server
+    extend T::Sig
+
+    sig { returns(T::Hash[Symbol, T.untyped]) }
     attr_reader :options
 
+    sig { params(options: T::Hash[Symbol, T.untyped]).void }
     def initialize(options)
       @options = options
     end
