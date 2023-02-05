@@ -6,7 +6,7 @@ module Redis
       TYPES = {
         # Simple types
         # "$" => BlobString,
-        # "+" => SimpleString,
+        "+" => SimpleString,
         "-" => SimpleError,
         # ":" => Number,
         # "_" => Null,

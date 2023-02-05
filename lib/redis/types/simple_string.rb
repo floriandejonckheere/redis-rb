@@ -2,7 +2,7 @@
 
 module Redis
   module Types
-    class SimpleError
+    class SimpleString
       attr_reader :message
 
       def initialize(message)
@@ -10,14 +10,13 @@ module Redis
       end
 
       def to_s
-        "-ERR #{message}\r\n"
+        "+#{message}\r\n"
       end
 
       def self.parse(socket)
         new socket
           .readline
           .chomp
-          .delete_prefix("ERR ")
       end
     end
   end

@@ -6,8 +6,16 @@ RSpec.describe Redis::Types::Parser do
   let(:socket) { StringIO.new }
 
   describe "#read" do
+    it "parses simple error strings" do
+      socket.write("+hello world\r\n")
+      socket.rewind
+
+      expect(parser.read).to be_a Redis::Types::SimpleString
+    end
+
     it "parses simple error types" do
       socket.write("-ERR unknown command 'X'\r\n")
+      socket.rewind
 
       expect(parser.read).to be_a Redis::Types::SimpleError
     end
