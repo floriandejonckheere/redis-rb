@@ -39,6 +39,12 @@ RSpec.describe Redis::Types::Parser do
       expect(parser.read).to be_a Redis::Types::Array
     end
 
+    it "parses maps" do
+      wsocket.write("%2\r\n+one\r\n+two\r\n")
+
+      expect(parser.read).to be_a Redis::Types::Map
+    end
+
     it "raises for unknown types" do
       wsocket.write("&ERR unknown command 'X'\r\n")
 

@@ -21,7 +21,7 @@ module Redis
 
         # Aggregate types
         "*" => Array,
-        # "%" => Map,
+        "%" => Map,
         # "~" => Set,
         # "|" => Attribute,
       }.freeze, T::Hash[T.nilable(String), T.class_of(Redis::Type)],)

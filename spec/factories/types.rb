@@ -23,5 +23,9 @@ FactoryBot.define do
     factory :array, class: "Redis::Types::Array" do
       value { [build(:simple_string), build(:simple_error)] }
     end
+
+    factory :map, class: "Redis::Types::Map" do
+      value { { build(:simple_string) => build(:simple_error) } }
+    end
   end
 end
