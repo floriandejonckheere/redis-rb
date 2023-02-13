@@ -36,6 +36,9 @@ module Redis
 
         new hash
       end
+
+      sig { params(value: T::Hash[T.any(T::String, T::Symbol), T.any]).returns(T.attached_class) }
+      def self.from_h(value); end
     end
   end
 end

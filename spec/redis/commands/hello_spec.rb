@@ -6,17 +6,33 @@ RSpec.describe Redis::Commands::Hello do
   let(:arguments) { build(:array, value: [build(:blob_string, value: "3")]) }
 
   describe "#execute" do
-    it "returns a string" do
-      expect(command.execute).to be_a(Redis::Types::SimpleString)
-      expect(command.execute.value).to eq "OK"
+    it "returns a map" do
+      expect(command.execute).to be_a(Redis::Types::Map)
+      expect(command.execute.value.transform_keys(&:value).transform_values(&:value)).to include(
+        "server" => "redis-rb",
+        "version" => Redis::VERSION,
+        "proto" => Redis::PROTOCOL,
+        "id" => 1,
+        "mode" => "standalone",
+        "role" => "master",
+        "modules" => [],
+      )
     end
 
     context "when no arguments are passed" do
       let(:arguments) { build(:array, value: []) }
 
-      it "returns a string" do
-        expect(command.execute).to be_a(Redis::Types::SimpleString)
-        expect(command.execute.value).to eq "OK"
+      it "returns a map" do
+        expect(command.execute).to be_a(Redis::Types::Map)
+        expect(command.execute.value.transform_keys(&:value).transform_values(&:value)).to include(
+          "server" => "redis-rb",
+          "version" => Redis::VERSION,
+          "proto" => Redis::PROTOCOL,
+          "id" => 1,
+          "mode" => "standalone",
+          "role" => "master",
+          "modules" => [],
+        )
       end
     end
 
