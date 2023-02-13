@@ -13,4 +13,7 @@ module Redis
   end
 
   VERSION = Redis::Version::STRING
+
+  # Redis protocol version (RESP)
+  PROTOCOL = 3
 end

@@ -5,14 +5,17 @@ module Redis
   module Commands
     class Hello < Command
       def execute
-        return Types::SimpleError.new("AUTH not implemented yet") unless arguments&.value&.count == 1
-
-        version = arguments&.value&.shift&.value
-
-        return Types::SimpleError.new("NOPROTO sorry this protocol version is not supported") unless version == "3"
+        return Types::SimpleError.new("AUTH not implemented yet") if arguments&.value&.count&.> 1
+        return Types::SimpleError.new("NOPROTO unsupported protocol version") unless version == 3
 
         # TODO: return map
         Types::SimpleString.new("OK")
+      end
+
+      private
+
+      def version
+        arguments&.value&.first&.value&.to_i || Redis::PROTOCOL
       end
     end
   end

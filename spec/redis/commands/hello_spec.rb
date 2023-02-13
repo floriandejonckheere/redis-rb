@@ -8,13 +8,15 @@ RSpec.describe Redis::Commands::Hello do
   describe "#execute" do
     it "returns a string" do
       expect(command.execute).to be_a(Redis::Types::SimpleString)
+      expect(command.execute.value).to eq "OK"
     end
 
     context "when no arguments are passed" do
       let(:arguments) { build(:array, value: []) }
 
-      it "returns an error" do
-        expect(command.execute).to be_a(Redis::Types::SimpleError)
+      it "returns a string" do
+        expect(command.execute).to be_a(Redis::Types::SimpleString)
+        expect(command.execute.value).to eq "OK"
       end
     end
 
@@ -23,6 +25,7 @@ RSpec.describe Redis::Commands::Hello do
 
       it "returns an error" do
         expect(command.execute).to be_a(Redis::Types::SimpleError)
+        expect(command.execute.value).to eq "AUTH not implemented yet"
       end
     end
 
@@ -31,6 +34,7 @@ RSpec.describe Redis::Commands::Hello do
 
       it "returns an error" do
         expect(command.execute).to be_a(Redis::Types::SimpleError)
+        expect(command.execute.value).to eq "NOPROTO unsupported protocol version"
       end
     end
   end
