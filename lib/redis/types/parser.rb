@@ -34,9 +34,11 @@ module Redis
         @socket = socket
       end
 
-      sig { returns(Redis::Type) }
+      sig { returns(T.nilable(Redis::Type)) }
       def read
         type = socket.read(1)
+
+        return unless type
 
         TYPES
           .fetch(type)

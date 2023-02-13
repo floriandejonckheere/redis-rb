@@ -22,6 +22,8 @@ module Redis
           .new(socket)
           .read
 
+        break unless type
+
         command = Commands::Parser
           .new(type)
           .read
@@ -33,13 +35,15 @@ module Redis
       rescue ArgumentError => e
         socket.write(Types::SimpleError.new(e.message).to_s)
       end
+    ensure
+      info "Client #{address} disconnected"
     end
 
     private
 
     sig { returns(String) }
     def address
-      "#{socket.peeraddr[3]}:#{socket.peeraddr[1]}"
+      @address ||= "#{socket.peeraddr[3]}:#{socket.peeraddr[1]}"
     end
   end
 end
