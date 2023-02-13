@@ -8,10 +8,10 @@ module Redis
 
     abstract!
 
-    sig { returns(Redis::Types::Array) }
+    sig { returns(T.nilable(Redis::Types::Array)) }
     attr_reader :arguments
 
-    sig { params(arguments: Redis::Types::Array).void }
+    sig { params(arguments: T.nilable(Redis::Types::Array)).void }
     def initialize(arguments)
       @arguments = arguments
     end
