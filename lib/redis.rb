@@ -21,7 +21,14 @@ module Redis
     end
 
     def setup
-      @loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
+      @loader = Zeitwerk::Loader.new
+
+      # Add root directories
+      loader.push_dir(root.join("lib"))
+      loader.push_dir(root.join("lib/ext"))
+
+      # Load extensions
+      Dir[root.join("lib/ext/**/*.rb")].each { |file| require file }
 
       # Register inflections
       instance_eval(File.read(root.join("config/inflections.rb")))
