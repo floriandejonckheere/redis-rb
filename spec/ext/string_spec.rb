@@ -19,17 +19,17 @@ RSpec.describe String do
 
   describe ".from_resp3" do
     it "deserializes blob strings" do
-      wsocket.write("$11\r\nhello world\r\n")
+      wsocket.write("11\r\nhello world\r\n")
 
-      type = described_class.from_resp3(rsocket)
+      type = described_class.from_resp3("$", rsocket)
 
       expect(type).to eq "hello world"
     end
 
     it "deserializes simple strings" do
-      wsocket.write("+hello world\r\n")
+      wsocket.write("hello world\r\n")
 
-      type = described_class.from_resp3(rsocket)
+      type = described_class.from_resp3("+", rsocket)
 
       expect(type).to eq "hello world"
     end

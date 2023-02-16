@@ -9,11 +9,8 @@ class String
     "$#{length}\r\n#{self}\r\n"
   end
 
-  sig { params(socket: Redis::Socket).returns(T.attached_class) }
-  def self.from_resp3(socket)
-    # Read string type
-    type = socket.read(1)
-
+  sig { params(type: String, socket: Redis::Socket).returns(T.attached_class) }
+  def self.from_resp3(type, socket)
     case type
     when "$"
       # Read number of characters in blob string
