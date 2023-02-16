@@ -20,18 +20,18 @@ RSpec.describe Error do
 
   describe ".from_resp3" do
     it "deserializes blob errors" do
-      wsocket.write("!15\r\nERR hello world\r\n")
+      wsocket.write("15\r\nERR hello world\r\n")
 
-      type = described_class.from_resp3(rsocket)
+      type = described_class.from_resp3("!", rsocket)
 
       expect(type.code).to eq "ERR"
       expect(type.message).to eq "hello world"
     end
 
     it "deserializes simple strings" do
-      wsocket.write("-ERR hello world\r\n")
+      wsocket.write("ERR hello world\r\n")
 
-      type = described_class.from_resp3(rsocket)
+      type = described_class.from_resp3("-", rsocket)
 
       expect(type.code).to eq "ERR"
       expect(type.message).to eq "hello world"

@@ -23,11 +23,8 @@ class Error
     "!#{code.length + 1 + message.length}\r\n#{code} #{message}\r\n"
   end
 
-  sig { params(socket: Redis::Socket).returns(T.attached_class) }
-  def self.from_resp3(socket)
-    # Read error type
-    type = socket.read(1)
-
+  sig { params(type: String, socket: Redis::Socket).returns(T.attached_class) }
+  def self.from_resp3(type, socket)
     case type
     when "!"
       # Read number of characters in blob error
