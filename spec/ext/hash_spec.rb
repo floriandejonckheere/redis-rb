@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# typed: true
 
 RSpec.describe Array do
   subject(:type) { value }

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# typed: true
 
 RSpec.describe Integer do
   subject(:type) { value }

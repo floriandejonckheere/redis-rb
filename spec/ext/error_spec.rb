@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# typed: true
 
 RSpec.describe Error do
   subject(:type) { described_class.new(code, value) }
