@@ -2,22 +2,7 @@
 # typed: true
 
 module Redis
-  class Type
-    extend T::Sig
-    extend T::Helpers
+  extend T::Sig
 
-    abstract!
-
-    attr_reader :value
-
-    def initialize(value)
-      @value = value
-    end
-
-    sig { abstract.returns(String) }
-    def to_s; end
-
-    sig { abstract.params(socket: Socket).returns(T.attached_class) }
-    def self.parse(socket); end
-  end
+  Type = T.type_alias { T.any(String, Error, Integer, Array, Hash) }
 end
