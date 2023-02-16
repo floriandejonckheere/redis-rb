@@ -8,10 +8,10 @@ module Redis
 
       TYPES = T.let({
         # Simple types
-        "$" => BlobString,
-        "+" => SimpleString,
-        "-" => SimpleError,
-        ":" => Number,
+        "$" => String,
+        "+" => String,
+        "-" => Error,
+        ":" => Integer,
         # "_" => Null,
         # "," => Double,
         # "#" => Boolean,
@@ -21,7 +21,7 @@ module Redis
 
         # Aggregate types
         "*" => Array,
-        "%" => Map,
+        "%" => Hash,
         # "~" => Set,
         # "|" => Attribute,
       }.freeze, T::Hash[T.nilable(String), T.class_of(Redis::Type)],)
@@ -34,7 +34,7 @@ module Redis
         @socket = socket
       end
 
-      sig { returns(T.nilable(Redis::Type)) }
+      sig { returns(Redis::Type) }
       def read
         type = socket.read(1)
 
@@ -42,7 +42,7 @@ module Redis
 
         TYPES
           .fetch(type)
-          .parse(socket)
+          .from_resp3(type, socket) { read }
       rescue KeyError => e
         raise ArgumentError, "unknown type '#{e.key}'"
       end
