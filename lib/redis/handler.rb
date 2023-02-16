@@ -31,9 +31,9 @@ module Redis
         result = command
           .execute
 
-        socket.write(result.to_s)
+        socket.write(result.to_resp3)
       rescue ArgumentError => e
-        socket.write(Types::SimpleError.new(e.message).to_s)
+        socket.write(Error.new("ERR", e.message).to_resp3)
       end
     ensure
       info "Client #{address} disconnected"
