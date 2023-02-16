@@ -6,31 +6,33 @@ module Redis
     class Parser
       extend T::Sig
 
-      sig { returns(Redis::Type) }
+      sig { returns(T::Array[Redis::Type]) }
       attr_reader :arguments
 
-      sig { params(arguments: Redis::Type).void }
+      sig { params(arguments: T::Array[Redis::Type]).void }
       def initialize(arguments)
-        @arguments = arguments
+        @arguments = Array(arguments)
       end
 
       sig { returns(Redis::Command) }
       def read
-        command, args = case arguments
-                        when Types::Array
-                          [arguments.value.shift, arguments]
-                        else
-                          arguments
-                        end
+        command = arguments
+          .shift
 
-        klass = command.value.downcase.camelize
+        raise ArgumentError, "no command specified" unless command
+
+        # Infer command class
+        # FIXME: allow only known commands
+        klass = command
+          .downcase
+          .camelize
 
         # Instantiate command class
         "Redis::Commands::#{klass}"
           .constantize
-          .new(args)
+          .new(arguments)
       rescue NameError
-        raise ArgumentError, "unknown command '#{command.value.upcase}'"
+        raise ArgumentError, "unknown command '#{command.upcase}'"
       end
     end
   end

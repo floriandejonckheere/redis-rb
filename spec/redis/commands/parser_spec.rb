@@ -5,7 +5,7 @@ RSpec.describe Redis::Commands::Parser do
 
   describe "#read" do
     context "HELLO" do
-      let(:arguments) { build(:array, value: [build(:simple_string, value: "HELLO"), build(:number, value: 3)]) }
+      let(:arguments) { ["HELLO", "3"] }
 
       it "parses the command" do
         expect(parser.read).to be_a Redis::Commands::Hello
@@ -13,7 +13,7 @@ RSpec.describe Redis::Commands::Parser do
     end
 
     context "unknown command" do
-      let(:arguments) { build(:array, value: [build(:simple_string, value: "UNKNOWN")]) }
+      let(:arguments) { ["UNKNOWN"] }
 
       it "raises" do
         expect { parser.read }.to raise_error ArgumentError
