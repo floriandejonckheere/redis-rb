@@ -9,46 +9,50 @@ RSpec.describe Redis::Types::Parser do
   let(:wsocket) { pipes.last }
 
   describe "#read" do
-    it "parses blob strings" do
-      wsocket.write("$11\r\nhello world\r\n")
+    describe "aggregate types" do
+      it "parses blob strings" do
+        wsocket.write("$11\r\nhello world\r\n")
 
-      expect(parser.read).to be_a String
+        expect(parser.read).to be_a String
+      end
+
+      it "parses simple strings" do
+        wsocket.write("+hello world\r\n")
+
+        expect(parser.read).to be_a String
+      end
+
+      it "parses simple errors" do
+        wsocket.write("-ERR unknown command 'X'\r\n")
+
+        expect(parser.read).to be_an Error
+      end
+
+      it "parses numbers" do
+        wsocket.write(":1\r\n")
+
+        expect(parser.read).to be_an Integer
+      end
     end
 
-    it "parses simple strings" do
-      wsocket.write("+hello world\r\n")
+    describe "aggregate types" do
+      it "parses arrays" do
+        wsocket.write("*2\r\n+one\r\n+two\r\n")
 
-      expect(parser.read).to be_a String
-    end
+        expect(parser.read).to be_an Array
+      end
 
-    it "parses simple errors" do
-      wsocket.write("-ERR unknown command 'X'\r\n")
+      it "parses maps" do
+        wsocket.write("%2\r\n+one\r\n+two\r\n")
 
-      expect(parser.read).to be_an Error
-    end
+        expect(parser.read).to be_a Hash
+      end
 
-    it "parses numbers" do
-      wsocket.write(":1\r\n")
+      it "raises for unknown types" do
+        wsocket.write("&ERR unknown command 'X'\r\n")
 
-      expect(parser.read).to be_an Integer
-    end
-
-    it "parses arrays" do
-      wsocket.write("*2\r\n+one\r\n+two\r\n")
-
-      expect(parser.read).to be_an Array
-    end
-
-    it "parses maps" do
-      wsocket.write("%2\r\n+one\r\n+two\r\n")
-
-      expect(parser.read).to be_a Hash
-    end
-
-    it "raises for unknown types" do
-      wsocket.write("&ERR unknown command 'X'\r\n")
-
-      expect { parser.read }.to raise_error ArgumentError
+        expect { parser.read }.to raise_error ArgumentError
+      end
     end
   end
 end
