@@ -35,5 +35,14 @@ RSpec.describe Error do
       expect(type.code).to eq "ERR"
       expect(type.message).to eq "hello world"
     end
+
+    it "deserializes blob strings" do
+      wsocket.write("21\r\nSYNTAX invalid syntax\r\n")
+
+      type = described_class.from_resp3("!", rsocket)
+
+      expect(type.code).to eq "SYNTAX"
+      expect(type.message).to eq "invalid syntax"
+    end
   end
 end

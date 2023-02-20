@@ -51,6 +51,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be true
       end
+
+      it "parses blob errors" do
+        wsocket.write("!21\r\nSYNTAX invalid syntax\r\n")
+
+        expect(parser.read).to be_an Error
+      end
     end
 
     describe "aggregate types" do
