@@ -14,7 +14,7 @@ module Redis
         ":" => Integer,
         "_" => NilClass,
         "," => Float,
-        # "#" => Boolean,
+        "#" => TrueClass,
         # "!" => BlobError,
         # "=" => VerbatimString,
         # "(" => BigNumber,

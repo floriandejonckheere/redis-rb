@@ -45,6 +45,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be_a Float
       end
+
+      it "parses booleans" do
+        wsocket.write("#t\r\n")
+
+        expect(parser.read).to be true
+      end
     end
 
     describe "aggregate types" do
