@@ -9,7 +9,7 @@ module Redis
       sig { returns(T::Array[Redis::Type]) }
       attr_reader :arguments
 
-      sig { params(arguments: T::Array[Redis::Type]).void }
+      sig { params(arguments: T.nilable(Redis::Type)).void }
       def initialize(arguments)
         @arguments = Array(arguments)
       end
@@ -18,21 +18,24 @@ module Redis
       def read
         command = arguments
           .shift
+          .to_s
 
         raise ArgumentError, "no command specified" unless command
 
-        # Infer command class
-        # FIXME: allow only known commands
-        klass = command
+        # Infer command name
+        name = command
           .downcase
           .camelize
 
+        # Infer command class
+        klass = "Redis::Commands::#{name}"
+          .safe_constantize
+
+        raise ArgumentError, "unknown command '#{command.upcase}'" unless klass
+
         # Instantiate command class
-        "Redis::Commands::#{klass}"
-          .constantize
+        klass
           .new(arguments)
-      rescue NameError
-        raise ArgumentError, "unknown command '#{command.upcase}'"
       end
     end
   end
