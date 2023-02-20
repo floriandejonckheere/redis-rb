@@ -16,7 +16,7 @@ module Redis
         "," => Float,
         "#" => TrueClass,
         "!" => Error,
-        # "=" => VerbatimString,
+        "=" => String,
         # "(" => BigNumber,
 
         # Aggregate types

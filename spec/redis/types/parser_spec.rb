@@ -57,6 +57,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be_an Error
       end
+
+      it "parses verbatim strings" do
+        wsocket.write("=15\r\ntxt:Some string\r\n")
+
+        expect(parser.read).to be_a String
+      end
     end
 
     describe "aggregate types" do

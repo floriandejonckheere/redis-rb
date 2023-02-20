@@ -32,5 +32,13 @@ RSpec.describe String do
 
       expect(type).to eq "hello world"
     end
+
+    it "deserializes verbatim strings" do
+      wsocket.write("15\r\ntxt:hello world\r\n")
+
+      type = described_class.from_resp3("=", rsocket)
+
+      expect(type).to eq "hello world"
+    end
   end
 end
