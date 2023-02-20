@@ -22,7 +22,7 @@ RSpec.describe Array do
     it "deserializes the type" do
       wsocket.write("2\r\n$5\r\nhello\r\n$5\r\nworld\r\n")
 
-      type = described_class.from_resp3("*", rsocket, &parser.method(:read))
+      type = described_class.from_resp3("*", rsocket) { parser.read }
 
       expect(type).to eq ["hello", "world"]
     end
