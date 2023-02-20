@@ -13,7 +13,7 @@ module Redis
         "-" => Error,
         ":" => Integer,
         "_" => NilClass,
-        # "," => Double,
+        "," => Float,
         # "#" => Boolean,
         # "!" => BlobError,
         # "=" => VerbatimString,

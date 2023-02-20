@@ -39,6 +39,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be_nil
       end
+
+      it "parses doubles" do
+        wsocket.write(",1.23\r\n")
+
+        expect(parser.read).to be_a Float
+      end
     end
 
     describe "aggregate types" do
