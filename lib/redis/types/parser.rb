@@ -12,7 +12,7 @@ module Redis
         "+" => String,
         "-" => Error,
         ":" => Integer,
-        # "_" => Null,
+        "_" => NilClass,
         # "," => Double,
         # "#" => Boolean,
         # "!" => BlobError,

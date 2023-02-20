@@ -33,6 +33,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be_an Integer
       end
+
+      it "parses nulls" do
+        wsocket.write("_\r\n")
+
+        expect(parser.read).to be_nil
+      end
     end
 
     describe "aggregate types" do
