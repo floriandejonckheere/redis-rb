@@ -9,6 +9,12 @@ RSpec.describe Redis::Types::Parser do
   let(:wsocket) { pipes.last }
 
   describe "#read" do
+    it "raises for unknown types" do
+      wsocket.write("&ERR unknown command 'X'\r\n")
+
+      expect { parser.read }.to raise_error ArgumentError
+    end
+
     describe "aggregate types" do
       it "parses blob strings" do
         wsocket.write("$11\r\nhello world\r\n")
@@ -76,12 +82,6 @@ RSpec.describe Redis::Types::Parser do
         wsocket.write("%2\r\n+one\r\n+two\r\n")
 
         expect(parser.read).to be_a Hash
-      end
-
-      it "raises for unknown types" do
-        wsocket.write("&ERR unknown command 'X'\r\n")
-
-        expect { parser.read }.to raise_error ArgumentError
       end
     end
   end
