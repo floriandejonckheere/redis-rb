@@ -21,6 +21,9 @@ Layout/MultilineMethodCallIndentation:
 Layout/ParameterAlignment:
   EnforcedStyle: with_fixed_indentation
 
+Naming/BlockForwarding:
+  Enabled: false
+
 Metrics/AbcSize:
   Enabled: false
 
