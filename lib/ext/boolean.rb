@@ -11,17 +11,13 @@ module Boolean
     def to_resp3
       "##{to_s[0]}\r\n"
     end
-  end
-
-  class_methods do
-    extend T::Sig
 
     sig { params(_type: String, socket: Redis::Socket).returns(T.attached_class) }
-    def from_resp3(_type, socket)
+    def self.from_resp3(_type, socket)
       # Read value
       value = socket
-        .gets
-        .chomp
+                .gets
+                .chomp
 
       value == "t"
     end
