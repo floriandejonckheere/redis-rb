@@ -23,7 +23,7 @@ module Redis
         "*" => Array,
         "%" => Hash,
         "~" => Set,
-        # "|" => Attribute,
+        "|" => Attribute,
       }.freeze, T::Hash[T.nilable(String), T.class_of(Redis::Type)],)
 
       sig { returns(Socket) }

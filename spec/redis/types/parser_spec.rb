@@ -89,6 +89,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be_a Set
       end
+
+      it "parses attributes" do
+        wsocket.write("|2\r\n+one\r\n+two\r\n")
+
+        expect(parser.read).to be_an Attribute
+      end
     end
   end
 end
