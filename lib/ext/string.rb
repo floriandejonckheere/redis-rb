@@ -23,7 +23,8 @@ class String
       count = socket.gets.chomp.to_i
 
       # Read format of verbatim string
-      format = socket.read(3)
+      # TODO: return format to user
+      socket.read(3)
 
       # Read separator
       socket.read(1)
