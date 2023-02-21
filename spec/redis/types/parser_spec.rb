@@ -69,6 +69,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be_a String
       end
+
+      it "parses big decimals" do
+        wsocket.write("(3492890328409238509324850943850943825024385\r\n")
+
+        expect(parser.read).to be_a Integer
+      end
     end
 
     describe "aggregate types" do

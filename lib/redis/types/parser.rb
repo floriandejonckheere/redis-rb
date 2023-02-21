@@ -17,7 +17,7 @@ module Redis
         "#" => TrueClass,
         "!" => Error,
         "=" => String,
-        # "(" => BigNumber,
+        "(" => Integer,
 
         # Aggregate types
         "*" => Array,
