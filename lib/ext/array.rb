@@ -15,6 +15,6 @@ class Array
     count = socket.gets.chomp.to_i
 
     # Read elements
-    new(count, &block)
+    count.times.map(&block)
   end
 end

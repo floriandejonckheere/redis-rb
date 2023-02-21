@@ -15,7 +15,7 @@ class Attribute < Hash
     count = socket.gets.chomp.to_i
 
     # Read elements
-    elements = Array.new(count, &block)
+    elements = count.times.map(&block)
 
     # Convert to pair-wise array, and then to hash
     hash = elements

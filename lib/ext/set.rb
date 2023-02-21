@@ -15,6 +15,9 @@ class Set
     count = socket.gets.chomp.to_i
 
     # Read elements
-    new(Array.new(count, &block))
+    elements = count.times.map(&block)
+
+    # Convert to set
+    new elements
   end
 end
