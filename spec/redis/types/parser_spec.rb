@@ -83,6 +83,12 @@ RSpec.describe Redis::Types::Parser do
 
         expect(parser.read).to be_a Hash
       end
+
+      it "parses sets" do
+        wsocket.write("~2\r\n+one\r\n+two\r\n")
+
+        expect(parser.read).to be_a Set
+      end
     end
   end
 end

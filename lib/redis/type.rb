@@ -5,7 +5,7 @@ module Redis
   extend T::Sig
 
   SimpleType = T.type_alias { T.any(String, Error, Integer, NilClass, Float, TrueClass, FalseClass) }
-  AggregateType = T.type_alias { T.any(Array, Hash) }
+  AggregateType = T.type_alias { T.any(Array, Hash, Set) }
 
   Type = T.type_alias { T.any(SimpleType, AggregateType) }
 end
