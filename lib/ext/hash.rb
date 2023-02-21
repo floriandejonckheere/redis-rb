@@ -20,6 +20,6 @@ class Hash
     # Convert to pair-wise array, and then to hash
     elements
       .each_slice(2)
-      .to_h
+      .with_object(new) { |(k, v), hash| hash[k] = v }
   end
 end

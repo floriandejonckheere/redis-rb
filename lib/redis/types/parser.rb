@@ -24,7 +24,7 @@ module Redis
         "%" => Hash,
         "~" => Set,
         "|" => Attribute,
-      }.freeze, T::Hash[T.nilable(String), T.class_of(Redis::Type)],)
+      }.freeze, T::Hash[String, T.untyped],)
 
       sig { returns(Socket) }
       attr_reader :socket

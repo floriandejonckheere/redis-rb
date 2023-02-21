@@ -18,13 +18,14 @@ class Float
 
     case value.downcase
     when "inf"
-      Float::INFINITY
+      INFINITY
     when "-inf"
-      -Float::INFINITY
+      -INFINITY
     when "nan"
-      Float::NAN
+      NAN
     else
-      Float value
+      # Convert to float (using Kernel#Float)
+      Kernel.send(name&.to_sym || :Float, value)
     end
   end
 end

@@ -14,6 +14,7 @@ class NilClass
     # Read until end of line
     socket.gets
 
+    # Return nil
     nil
   end
 end
