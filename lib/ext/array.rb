@@ -6,7 +6,7 @@ class Array
 
   sig { returns(String) }
   def to_resp3
-    "*#{count}\r\n#{map(&:to_resp3).join}"
+    "*#{count}\r\n#{map { |e| T.cast(e, Redis::Type).to_resp3 }.join}"
   end
 
   sig { params(_type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }

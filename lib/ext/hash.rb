@@ -6,7 +6,7 @@ class Hash
 
   sig { returns(String) }
   def to_resp3
-    "%#{count * 2}\r\n#{flat_map { |k, v| [k.to_resp3, v.to_resp3] }.join}"
+    "%#{count * 2}\r\n#{flat_map { |k, v| [T.cast(k, Redis::Type).to_resp3, T.cast(v, Redis::Type).to_resp3] }.join}"
   end
 
   sig { params(_type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }
