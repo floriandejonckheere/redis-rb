@@ -25,6 +25,8 @@ module Rediss
           .new(options)
           .start
       end
+    rescue Interrupt
+      info "Shutting down server"
     end
 
     private
