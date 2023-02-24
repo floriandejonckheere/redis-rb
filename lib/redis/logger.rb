@@ -10,10 +10,10 @@ module Redis
     end
 
     def formatter
-      proc do |severity, _time, _progname, msg|
+      proc do |severity, time, _progname, msg|
         abort("#{File.basename($PROGRAM_NAME)}: #{msg}".white.on_red) if severity == "FATAL"
 
-        msg = "#{msg}\n"
+        msg = "[#{time}] #{msg}\n"
         msg = msg.yellow if severity == "DEBUG"
         msg = msg.red if severity == "ERROR"
 
