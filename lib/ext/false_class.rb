@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-require "redis/type"
+require "rediss/type"
 
 class FalseClass
   include Boolean

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-module Redis
+module Rediss
   module Types
     class Parser
       extend T::Sig
@@ -34,7 +34,7 @@ module Redis
         @socket = socket
       end
 
-      sig { returns(Redis::Type) }
+      sig { returns(Rediss::Type) }
       def read
         type = socket.read(1)
 

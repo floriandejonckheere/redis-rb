@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 # typed: true
 
-require "redis/type"
+require "rediss/type"
 
 class Float
-  include Redis::Type
+  include Rediss::Type
 
   extend T::Sig
 
@@ -13,7 +13,7 @@ class Float
     ",#{'-' if negative?}#{infinite? || nan? ? abs.to_s.downcase[0..2] : self}\r\n"
   end
 
-  sig { override.params(type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }
+  sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
   def self.from_resp3(type, socket, &block)
     # Read value
     value = socket

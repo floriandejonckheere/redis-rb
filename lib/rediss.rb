@@ -8,7 +8,7 @@ require "active_support/all"
 require "sorbet-runtime"
 require "zeitwerk"
 
-module Redis
+module Rediss
   class << self
     attr_reader :loader
 
@@ -41,4 +41,4 @@ module Redis
   end
 end
 
-Redis.setup
+Rediss.setup

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Redis
+module Rediss
   module Version
     MAJOR = 0
     MINOR = 1
@@ -12,8 +12,8 @@ module Redis
     STRING = [VERSION, PRE].compact.join("-")
   end
 
-  VERSION = Redis::Version::STRING
+  VERSION = Rediss::Version::STRING
 
-  # Redis protocol version (RESP)
+  # Protocol version (RESP3)
   PROTOCOL = 3
 end

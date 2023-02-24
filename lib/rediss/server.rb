@@ -3,7 +3,7 @@
 
 require "async/io/tcp_socket"
 
-module Redis
+module Rediss
   class Server
     extend T::Sig
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-module Redis
+module Rediss
   module Commands
     class Ping < Command
       def execute

@@ -7,10 +7,10 @@ RSpec.describe TrueClass do
 
   let(:pipes) { IO.pipe }
 
-  let(:rsocket) { Redis::Socket.new(pipes.first) }
+  let(:rsocket) { Rediss::Socket.new(pipes.first) }
   let(:wsocket) { pipes.last }
 
-  let(:parser) { Redis::Types::Parser.new(rsocket) }
+  let(:parser) { Rediss::Types::Parser.new(rsocket) }
 
   describe "#to_resp3" do
     it "serializes the type" do

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 # typed: true
 
-require "redis/type"
+require "rediss/type"
 
 class Error
-  include Redis::Type
+  include Rediss::Type
 
   extend T::Sig
 
@@ -25,7 +25,7 @@ class Error
     "!#{code.length + 1 + message.length}\r\n#{code} #{message}\r\n"
   end
 
-  sig { override.params(type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }
+  sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
   def self.from_resp3(type, socket, &block)
     case type
     when "!"

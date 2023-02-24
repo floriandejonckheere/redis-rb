@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    redis (0.1.0)
+    rediss (0.1.0)
       activesupport (>= 6.0, < 7.1)
       async (~> 2.3)
       async-io (~> 1.34)
@@ -164,7 +164,7 @@ DEPENDENCIES
   ffaker
   overcommit
   rake
-  redis!
+  rediss!
   rspec
   rubocop
   rubocop-performance

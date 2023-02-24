@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Redis::Commands::Parser do
+RSpec.describe Rediss::Commands::Parser do
   subject(:parser) { described_class.new(arguments) }
 
   describe "#read" do
@@ -8,7 +8,7 @@ RSpec.describe Redis::Commands::Parser do
       let(:arguments) { ["HELLO", "3"] }
 
       it "parses the command" do
-        expect(parser.read).to be_a Redis::Commands::Hello
+        expect(parser.read).to be_a Rediss::Commands::Hello
       end
     end
 

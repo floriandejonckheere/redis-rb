@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Redis::Commands::Ping do
+RSpec.describe Rediss::Commands::Ping do
   subject(:command) { described_class.new(arguments) }
 
   let(:arguments) { ["hello world"] }

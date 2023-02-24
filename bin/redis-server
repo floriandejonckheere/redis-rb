@@ -3,10 +3,10 @@
 
 require_relative "../config/application"
 
-require "redis"
+require "rediss"
 
 begin
-  Redis::CLI
+  Rediss::CLI
     .new(ARGV)
     .start
 end

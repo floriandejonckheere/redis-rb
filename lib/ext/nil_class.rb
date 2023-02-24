@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 # typed: true
 
-require "redis/type"
+require "rediss/type"
 
 class NilClass
-  include Redis::Type
+  include Rediss::Type
 
   extend T::Sig
 
@@ -14,7 +14,7 @@ class NilClass
   end
 
   # Returns untyped because Sorbet is giving a cryptic error when trying to use `T.attached_class`
-  sig { override.params(type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.untyped) }
+  sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.untyped) }
   def self.from_resp3(type, socket, &block)
     # Read until end of line
     socket.gets

@@ -3,7 +3,7 @@
 require "optparse"
 require "English"
 
-module Redis
+module Rediss
   class CLI
     attr_reader :options
 

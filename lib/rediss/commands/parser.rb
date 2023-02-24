@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 # typed: true
 
-module Redis
+module Rediss
   module Commands
     class Parser
       extend T::Sig
 
-      sig { returns(T::Array[Redis::Type]) }
+      sig { returns(T::Array[Rediss::Type]) }
       attr_reader :arguments
 
-      sig { params(arguments: Redis::Type).void }
+      sig { params(arguments: Rediss::Type).void }
       def initialize(arguments)
         @arguments = Array(arguments)
       end
 
-      sig { returns(Redis::Command) }
+      sig { returns(Rediss::Command) }
       def read
         command = arguments
           .shift
@@ -30,7 +30,7 @@ module Redis
           .camelize
 
         # Infer command class
-        klass = "Redis::Commands::#{name}"
+        klass = "Rediss::Commands::#{name}"
           .safe_constantize
 
         raise ArgumentError, "unknown command '#{command.upcase}'" unless klass

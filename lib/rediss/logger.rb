@@ -3,7 +3,7 @@
 require "delegate"
 require "logger"
 
-module Redis
+module Rediss
   class Logger < SimpleDelegator
     def initialize
       super(::Logger.new($stdout, formatter:))

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Redis::Commands::Hello do
+RSpec.describe Rediss::Commands::Hello do
   subject(:command) { described_class.new(arguments) }
 
   let(:arguments) { [3] }
@@ -9,9 +9,9 @@ RSpec.describe Redis::Commands::Hello do
     it "returns a map" do
       expect(command.execute).to be_a Hash
       expect(command.execute).to eq(
-        "server" => "redis-rb",
-        "version" => Redis::VERSION,
-        "proto" => Redis::PROTOCOL,
+        "server" => "rediss",
+        "version" => Rediss::VERSION,
+        "proto" => Rediss::PROTOCOL,
         "id" => 1,
         "mode" => "standalone",
         "role" => "master",
@@ -25,9 +25,9 @@ RSpec.describe Redis::Commands::Hello do
       it "returns a map" do
         expect(command.execute).to be_a Hash
         expect(command.execute).to eq(
-          "server" => "redis-rb",
-          "version" => Redis::VERSION,
-          "proto" => Redis::PROTOCOL,
+          "server" => "rediss",
+          "version" => Rediss::VERSION,
+          "proto" => Rediss::PROTOCOL,
           "id" => 1,
           "mode" => "standalone",
           "role" => "master",

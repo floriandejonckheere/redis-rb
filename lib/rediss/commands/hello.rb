@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-module Redis
+module Rediss
   module Commands
     class Hello < Command
       def execute
@@ -9,9 +9,9 @@ module Redis
         return Error.new("NOPROTO", "unsupported protocol version") unless version == 3
 
         {
-          "server" => "redis-rb",
-          "version" => Redis::VERSION,
-          "proto" => Redis::PROTOCOL,
+          "server" => "rediss",
+          "version" => Rediss::VERSION,
+          "proto" => Rediss::PROTOCOL,
           "id" => 1,
           "mode" => "standalone",
           "role" => "master",
@@ -22,7 +22,7 @@ module Redis
       private
 
       def version
-        T.cast(arguments.first || Redis::PROTOCOL, Integer)
+        T.cast(arguments.first || Rediss::PROTOCOL, Integer)
       end
     end
   end

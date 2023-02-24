@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 # typed: true
 
-require "redis/type"
+require "rediss/type"
 
 module Boolean
-  include Redis::Type
+  include Rediss::Type
 
   extend ActiveSupport::Concern
   extend T::Sig
@@ -17,7 +17,7 @@ module Boolean
       "##{self == true ? 't' : 'f'}\r\n"
     end
 
-    sig { override.params(type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }
+    sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
     def self.from_resp3(type, socket, &block)
       # Read value
       value = socket

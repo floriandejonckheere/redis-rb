@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-module Redis
+module Rediss
   module Type
     extend T::Sig
     extend T::Helpers
@@ -17,7 +17,7 @@ module Redis
 
       interface!
 
-      sig { abstract.params(type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }
+      sig { abstract.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
       def from_resp3(type, socket, &block); end
     end
 

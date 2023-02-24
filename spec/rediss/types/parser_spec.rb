@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe Redis::Types::Parser do
+RSpec.describe Rediss::Types::Parser do
   subject(:parser) { described_class.new(rsocket) }
 
   let(:pipes) { IO.pipe }
 
-  let(:rsocket) { Redis::Socket.new(pipes.first) }
+  let(:rsocket) { Rediss::Socket.new(pipes.first) }
   let(:wsocket) { pipes.last }
 
   describe "#read" do

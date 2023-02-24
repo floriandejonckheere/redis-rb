@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-module Redis
+module Rediss
   # Adapter class for IO (used in specs) and Async::IO::TCPSocket (used at runtime)
   # Neither classes actually inherit from IO
   class Socket
