@@ -35,6 +35,7 @@ module Rediss
         o.on("-h", "--host HOST", "Host to bind to")
         o.on("-p", "--port PORT", Integer, "Port to bind to")
 
+        o.on("--version", "Display application information") { abort("Rediss v#{Rediss::VERSION}") }
         o.on("--help", "Display this message") { abort(parser.to_s) }
       end
     end
