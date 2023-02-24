@@ -10,6 +10,8 @@ RSpec.describe Float do
   let(:rsocket) { Redis::Socket.new(pipes.first) }
   let(:wsocket) { pipes.last }
 
+  let(:parser) { Redis::Types::Parser.new(rsocket) }
+
   describe "#to_resp3" do
     it "serializes the type" do
       expect(type.to_resp3).to eq ",1.23\r\n"
@@ -44,7 +46,7 @@ RSpec.describe Float do
     it "deserializes the type" do
       wsocket.write("1.23\r\n")
 
-      type = described_class.from_resp3(",", rsocket)
+      type = described_class.from_resp3(",", rsocket) { parser.read }
 
       expect(type).to eq 1.23
     end
@@ -53,7 +55,7 @@ RSpec.describe Float do
       it "deserializes the type" do
         wsocket.write("nan\r\n")
 
-        type = described_class.from_resp3(",", rsocket)
+        type = described_class.from_resp3(",", rsocket) { parser.read }
 
         expect(type).to be_nan
       end
@@ -63,7 +65,7 @@ RSpec.describe Float do
       it "deserializes the type" do
         wsocket.write("inf\r\n")
 
-        type = described_class.from_resp3(",", rsocket)
+        type = described_class.from_resp3(",", rsocket) { parser.read }
 
         expect(type).to be_infinite
       end
@@ -73,7 +75,7 @@ RSpec.describe Float do
       it "deserializes the type" do
         wsocket.write("-inf\r\n")
 
-        type = described_class.from_resp3(",", rsocket)
+        type = described_class.from_resp3(",", rsocket) { parser.read }
 
         expect(type).to be_infinite
       end

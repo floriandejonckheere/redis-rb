@@ -10,6 +10,8 @@ RSpec.describe String do
   let(:rsocket) { Redis::Socket.new(pipes.first) }
   let(:wsocket) { pipes.last }
 
+  let(:parser) { Redis::Types::Parser.new(rsocket) }
+
   describe "#to_resp3" do
     it "serializes the type" do
       expect(type.to_resp3).to eq "$11\r\nhello world\r\n"
@@ -20,7 +22,7 @@ RSpec.describe String do
     it "deserializes blob strings" do
       wsocket.write("11\r\nhello world\r\n")
 
-      type = described_class.from_resp3("$", rsocket)
+      type = described_class.from_resp3("$", rsocket) { parser.read }
 
       expect(type).to eq "hello world"
     end
@@ -28,7 +30,7 @@ RSpec.describe String do
     it "deserializes simple strings" do
       wsocket.write("hello world\r\n")
 
-      type = described_class.from_resp3("+", rsocket)
+      type = described_class.from_resp3("+", rsocket) { parser.read }
 
       expect(type).to eq "hello world"
     end
@@ -36,7 +38,7 @@ RSpec.describe String do
     it "deserializes verbatim strings" do
       wsocket.write("15\r\ntxt:hello world\r\n")
 
-      type = described_class.from_resp3("=", rsocket)
+      type = described_class.from_resp3("=", rsocket) { parser.read }
 
       expect(type).to eq "hello world"
     end

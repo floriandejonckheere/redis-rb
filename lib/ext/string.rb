@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 # typed: true
 
+require "redis/type"
+
 class String
+  include Redis::Type
+
   extend T::Sig
 
-  sig { returns(String) }
+  sig { override.returns(String) }
   def to_resp3
     "$#{length}\r\n#{self}\r\n"
   end
 
-  sig { params(type: String, socket: Redis::Socket).returns(T.attached_class) }
-  def self.from_resp3(type, socket)
+  sig { override.params(type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }
+  def self.from_resp3(type, socket, &block)
     case type
     when "$"
       # Read number of characters in blob string

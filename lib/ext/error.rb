@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 # typed: true
 
+require "redis/type"
+
 class Error
+  include Redis::Type
+
   extend T::Sig
 
   sig { returns(String) }
@@ -16,13 +20,13 @@ class Error
     @message = message
   end
 
-  sig { returns(String) }
+  sig { override.returns(String) }
   def to_resp3
     "!#{code.length + 1 + message.length}\r\n#{code} #{message}\r\n"
   end
 
-  sig { params(type: String, socket: Redis::Socket).returns(T.attached_class) }
-  def self.from_resp3(type, socket)
+  sig { override.params(type: String, socket: Redis::Socket, block: T.proc.returns(Redis::Type)).returns(T.attached_class) }
+  def self.from_resp3(type, socket, &block)
     case type
     when "!"
       # Read number of characters in blob error
