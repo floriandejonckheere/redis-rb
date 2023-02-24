@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Rediss::Types::Parser do
+RSpec.describe Rediss::TypeParser do
   subject(:parser) { described_class.new(rsocket) }
 
   let(:pipes) { IO.pipe }

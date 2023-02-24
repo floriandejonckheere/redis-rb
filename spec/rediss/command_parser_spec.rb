@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Rediss::Commands::Parser do
+RSpec.describe Rediss::CommandParser do
   subject(:parser) { described_class.new(arguments) }
 
   describe "#read" do

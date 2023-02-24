@@ -10,7 +10,7 @@ RSpec.describe FalseClass do
   let(:rsocket) { Rediss::Socket.new(pipes.first) }
   let(:wsocket) { pipes.last }
 
-  let(:parser) { Rediss::Types::Parser.new(rsocket) }
+  let(:parser) { Rediss::TypeParser.new(rsocket) }
 
   describe "#to_resp3" do
     it "serializes the type" do

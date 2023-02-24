@@ -18,13 +18,13 @@ module Rediss
       info "Client #{address} connected"
 
       loop do
-        type = Types::Parser
+        type = TypeParser
           .new(socket)
           .read
 
         break unless type
 
-        command = Commands::Parser
+        command = CommandParser
           .new(type)
           .read
 
