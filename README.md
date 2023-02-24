@@ -17,6 +17,13 @@ gem install rediss
 
 Execute `rediss-server --help` to see all available commands and their arguments.
 
+## Commands
+
+Currently, the following commands are supported:
+
+- `HELLO`
+- `PING`
+
 ## Release
 
 Update the changelog and bump the version in `lib/rediss/version.rb`.
