@@ -22,7 +22,7 @@ module Redis
       private
 
       def version
-        arguments.first&.to_i || Redis::PROTOCOL
+        T.cast(arguments.first || Redis::PROTOCOL, Integer)
       end
     end
   end

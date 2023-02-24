@@ -9,7 +9,7 @@ module Redis
       sig { returns(T::Array[Redis::Type]) }
       attr_reader :arguments
 
-      sig { params(arguments: T.nilable(Redis::Type)).void }
+      sig { params(arguments: Redis::Type).void }
       def initialize(arguments)
         @arguments = Array(arguments)
       end
@@ -18,9 +18,11 @@ module Redis
       def read
         command = arguments
           .shift
-          .to_s
 
         raise ArgumentError, "no command specified" unless command
+
+        # Assert first argument is a string
+        command = T.cast(command, String)
 
         # Infer command name
         name = command

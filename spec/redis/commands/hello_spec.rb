@@ -3,7 +3,7 @@
 RSpec.describe Redis::Commands::Hello do
   subject(:command) { described_class.new(arguments) }
 
-  let(:arguments) { ["3"] }
+  let(:arguments) { [3] }
 
   describe "#execute" do
     it "returns a map" do
@@ -37,7 +37,7 @@ RSpec.describe Redis::Commands::Hello do
     end
 
     context "when more than one argument is passed" do
-      let(:arguments) { ["3", "AUTH"] }
+      let(:arguments) { [3, "AUTH"] }
 
       it "returns an error" do
         expect(command.execute).to be_an Error
@@ -47,7 +47,7 @@ RSpec.describe Redis::Commands::Hello do
     end
 
     context "when an invalid protocol version is passed" do
-      let(:arguments) { ["2"] }
+      let(:arguments) { [2] }
 
       it "returns an error" do
         expect(command.execute).to be_an Error
