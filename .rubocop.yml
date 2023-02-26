@@ -53,6 +53,9 @@ RSpec/MultipleExpectations:
 RSpec/MultipleMemoizedHelpers:
   Max: 10
 
+RSpec/NestedGroups:
+  Max: 10
+
 Style/AccessorGrouping:
   Enabled: false
 

@@ -18,17 +18,21 @@ module Rediss
       info "Client #{address} connected"
 
       loop do
+        # Read user input
         type = TypeParser
           .new(socket)
           .read
 
         break unless type
 
+        # Parse command
         command = CommandParser
           .new(type)
           .read
 
+        # Validate and execute command
         result = command
+          .tap(&:validate)
           .execute
 
         socket.write(result.to_resp3)

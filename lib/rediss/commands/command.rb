@@ -27,9 +27,10 @@ module Rediss
 
         return Error.new("ERR", "unknown subcommand '#{subcommand.upcase}'") unless klass
 
-        # Instantiate and execute subcommand class
+        # Instantiate, validate, and execute subcommand class
         klass
           .new(arguments)
+          .tap(&:validate)
           .execute
       end
 
