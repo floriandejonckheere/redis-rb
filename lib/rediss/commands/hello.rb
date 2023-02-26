@@ -3,7 +3,7 @@
 
 module Rediss
   module Commands
-    class Hello < Command
+    class Hello < Rediss::Command
       def execute
         return Error.new("AUTH", "not implemented yet") if arguments.count > 1
         return Error.new("NOPROTO", "unsupported protocol version") unless version == 3
