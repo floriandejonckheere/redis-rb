@@ -56,6 +56,10 @@ Style/AccessorGrouping:
 Style/Documentation:
   Enabled: false
 
+Style/GlobalVars:
+  Exclude:
+    - spec/**/*.rb
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

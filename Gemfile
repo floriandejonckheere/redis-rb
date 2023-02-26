@@ -10,6 +10,14 @@ gemspec
 
 gem "async-io", github: "floriandejonckheere/async-io"
 
+group :test, :development do
+  # Generic connection pool
+  gem "connection_pool"
+
+  # Redis client
+  gem "redis"
+end
+
 group :development do
   # Change environment variables at runtime
   gem "climate_control"

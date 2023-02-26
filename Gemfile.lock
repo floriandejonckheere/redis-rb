@@ -31,6 +31,7 @@ GEM
     childprocess (4.1.0)
     climate_control (1.2.0)
     concurrent-ruby (1.2.0)
+    connection_pool (2.3.0)
     console (1.16.2)
       fiber-local
     debug (1.7.1)
@@ -69,6 +70,10 @@ GEM
       parser (>= 2.6.4.0)
       sorbet-runtime (>= 0.5.9204)
       unparser
+    redis (5.0.6)
+      redis-client (>= 0.9.0)
+    redis-client (0.12.2)
+      connection_pool
     regexp_parser (2.7.0)
     reline (0.3.2)
       io-console (~> 0.5)
@@ -164,11 +169,13 @@ PLATFORMS
 DEPENDENCIES
   async-io!
   climate_control
+  connection_pool
   debug
   factory_bot
   ffaker
   overcommit
   rake
+  redis
   rediss!
   rspec
   rubocop
