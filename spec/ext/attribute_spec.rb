@@ -24,7 +24,7 @@ RSpec.describe Attribute do
 
       type = described_class.from_resp3("|", rsocket) { parser.read }
 
-      expect(type).to eq(Attribute[{ "hello" => "world" }])
+      expect(type).to eq(described_class[{ "hello" => "world" }])
     end
   end
 end

@@ -33,6 +33,7 @@ group :development do
   # Ruby linter
   gem "rubocop"
   gem "rubocop-performance"
+  gem "rubocop-rake"
   gem "rubocop-rspec"
 
   # RSpec matchers

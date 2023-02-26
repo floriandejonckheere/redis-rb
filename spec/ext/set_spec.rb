@@ -24,7 +24,7 @@ RSpec.describe Set do
 
       type = described_class.from_resp3("~", rsocket) { parser.read }
 
-      expect(type).to eq Set.new(["hello", "world"])
+      expect(type).to eq described_class.new(["hello", "world"])
     end
   end
 end

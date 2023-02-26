@@ -1,5 +1,7 @@
 require:
   - rubocop-performance
+  - rubocop-rake
+  - rubocop-rspec
 
 AllCops:
   NewCops: enable
@@ -38,6 +40,15 @@ Metrics/MethodLength:
 
 Performance/TimesMap:
   Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
 
 Style/AccessorGrouping:
   Enabled: false

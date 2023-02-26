@@ -4,7 +4,7 @@ RSpec.describe Rediss::CommandParser do
   subject(:parser) { described_class.new(arguments) }
 
   describe "#read" do
-    context "HELLO" do
+    context "when the command is known" do
       let(:arguments) { ["HELLO", "3"] }
 
       it "parses the command" do
@@ -12,7 +12,7 @@ RSpec.describe Rediss::CommandParser do
       end
     end
 
-    context "unknown command" do
+    context "when the command is unknown" do
       let(:arguments) { ["UNKNOWN"] }
 
       it "raises" do

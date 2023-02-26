@@ -15,7 +15,7 @@ RSpec.describe Rediss::TypeParser do
       expect { parser.read }.to raise_error ArgumentError
     end
 
-    describe "aggregate types" do
+    describe "simple types" do
       it "parses blob strings" do
         wsocket.write("$11\r\nhello world\r\n")
 
