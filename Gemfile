@@ -8,6 +8,8 @@ ruby "~> 3.2"
 
 gemspec
 
+gem "async-io", github: "floriandejonckheere/async-io"
+
 group :development do
   # Change environment variables at runtime
   gem "climate_control"
