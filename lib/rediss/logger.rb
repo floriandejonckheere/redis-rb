@@ -3,6 +3,8 @@
 require "delegate"
 require "logger"
 
+require "colorize"
+
 module Rediss
   class Logger < SimpleDelegator
     def initialize
