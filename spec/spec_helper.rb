@@ -117,7 +117,31 @@ RSpec.configure do |config|
   $redis = ConnectionPool.new(size: 5, timeout: 5) { Redis.new(url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0")) }
 
   config.before do
-    # Clear Redis
+    # Clear Redis database
     $redis.with(&:flushdb)
+  end
+
+  # Spawn Rediss server for integration tests
+  config.around(:all, integration: true) do |example|
+    # Start Rediss server
+    pid = Process.spawn("bin/rediss-server --host 127.0.0.1 --port 6378 --log-level fatal")
+
+    # Rediss connection pool
+    $rediss = ConnectionPool.new(size: 5, timeout: 5) { Redis.new(url: "redis://localhost:6378/0") }
+
+    # Wait for Rediss server to start
+    loop do
+      $rediss.with(&:ping)
+
+      break
+    rescue Redis::CannotConnectError
+      sleep 0.5
+
+      retry
+    end
+
+    example.run
+  ensure
+    Process.kill("TERM", pid)
   end
 end
