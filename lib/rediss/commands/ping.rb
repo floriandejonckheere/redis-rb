@@ -13,5 +13,7 @@ module Rediss
         arguments.first || "PONG"
       end
     end
+
+    Registry.register("PING", Ping)
   end
 end

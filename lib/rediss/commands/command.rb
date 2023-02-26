@@ -23,6 +23,7 @@ module Rediss
           .camelize
 
         # Infer subcommand class
+        # TODO: use Registry to fetch subcommand class
         klass = "Rediss::Commands::Command::#{name}"
           .safe_constantize
 
@@ -34,13 +35,8 @@ module Rediss
           .tap(&:validate)
           .execute
       end
-
-      protected
-
-      def commands
-        Rediss::Command
-          .subclasses
-      end
     end
+
+    Registry.register("COMMAND", Command)
   end
 end

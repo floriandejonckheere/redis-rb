@@ -25,14 +25,14 @@ module Rediss
 
       # Infer command name
       name = command
-        .downcase
-        .camelize
+        .upcase
 
-      # Infer command class
-      klass = "Rediss::Commands::#{name}"
-        .safe_constantize
+      # Fetch command class
+      klass = Registry
+        .commands
+        .fetch(name, nil)
 
-      raise ArgumentError, "unknown command '#{command.upcase}'" unless klass
+      raise ArgumentError, "unknown command '#{command}'" unless klass
 
       # Instantiate command class
       klass
