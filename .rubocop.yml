@@ -38,6 +38,9 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Enabled: false
 
+Performance/MapCompact:
+  Enabled: false
+
 Performance/TimesMap:
   Enabled: false
 
