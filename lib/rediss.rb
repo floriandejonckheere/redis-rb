@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "logger"
-
 require "async"
 require "async/io"
 require "active_support/all"
@@ -14,10 +12,6 @@ module Rediss
 
     def root
       @root ||= Pathname.new(File.expand_path(File.join("..", ".."), __FILE__))
-    end
-
-    def logger
-      @logger ||= Logger.new
     end
 
     def setup

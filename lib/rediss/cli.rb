@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require "optparse"
 require "English"
+require "logger"
+require "optparse"
 
 module Rediss
   class CLI
@@ -20,6 +21,8 @@ module Rediss
     end
 
     def start
+      logger.level = Logger::DEBUG if options[:verbose]
+
       Async do
         Server
           .new(options)

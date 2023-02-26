@@ -32,7 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "activesupport", ">= 6.0", "< 7.1"
   spec.add_runtime_dependency "async", "~> 2.3"
   spec.add_runtime_dependency "async-io", "~> 1.34"
-  spec.add_runtime_dependency "colorize", "~> 0.8"
   spec.add_runtime_dependency "sorbet-runtime", "~> 0.5"
   spec.add_runtime_dependency "zeitwerk", "~> 2.4"
 end
