@@ -109,10 +109,4 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
-
-  config.before do
-    Rediss.instance_variable_set(:@options, nil)
-
-    Rediss.instance_variable_set(:@logger, Logger.new(File::NULL))
-  end
 end
