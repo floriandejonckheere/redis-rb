@@ -6,6 +6,13 @@ RSpec.describe Rediss::Commands::Hello do
   let(:arguments) { [3] }
 
   describe "#execute" do
+    it "returns the same responses as Redis" do
+      expected = $redis.with { |r| r.hello(arguments) }
+
+      # Compare only keys, not values
+      expect(command.execute.keys).to eq expected.keys
+    end
+
     it "returns a map" do
       expect(command.execute).to be_a Hash
       expect(command.execute).to eq(

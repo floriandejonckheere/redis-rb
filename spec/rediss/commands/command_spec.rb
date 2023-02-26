@@ -6,6 +6,8 @@ RSpec.describe Rediss::Commands::Command do
   let(:arguments) { ["count"] }
 
   describe "#execute" do
+    xit "returns the same responses as Redis"
+
     it "instantiates a subcommand" do
       allow(Rediss::Commands::Command::Count)
         .to receive(:new)

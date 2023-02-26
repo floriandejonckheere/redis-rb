@@ -6,6 +6,13 @@ RSpec.describe Rediss::Commands::Command::Count do
   let(:arguments) { [] }
 
   describe "#execute" do
+    it "returns the same responses as Redis" do
+      expected = $redis.with { |r| r.command(["count"]) }
+
+      # Don't compare exact values
+      expect(command.execute).to be < expected
+    end
+
     it "returns the number of supported commands" do
       expect(command.execute).to be_an Integer
     end

@@ -4,14 +4,15 @@
 module Rediss
   module Commands
     class Command
-      class List < Rediss::Command
+      class List < Command
         def execute
           # TODO: implement FILTERBY/ACLCAT/PATTERN arguments
           return Error.new("ERR", "wrong number of arguments for 'COMMAND LIST' command") if arguments.any?
 
           Rediss::Command
-            .descendants
+            .subclasses
             .map(&:name)
+            .map(&:demodulize)
             .map(&:downcase)
         end
       end
