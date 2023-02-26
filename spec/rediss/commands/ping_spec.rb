@@ -24,9 +24,11 @@ RSpec.describe Rediss::Commands::Ping do
       let(:arguments) { ["hello", "world"] }
 
       it "returns an error" do
-        expect(command.execute).to be_an Error
-        expect(command.execute.code).to eq "ERR"
-        expect(command.execute.message).to eq "wrong number of arguments for 'ping' command"
+        error = command.execute
+
+        expect(error).to be_an Error
+        expect(error.code).to eq "ERR"
+        expect(error.message).to eq "wrong number of arguments for 'PING' command"
       end
     end
   end

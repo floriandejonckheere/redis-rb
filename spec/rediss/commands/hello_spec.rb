@@ -40,9 +40,11 @@ RSpec.describe Rediss::Commands::Hello do
       let(:arguments) { [3, "AUTH"] }
 
       it "returns an error" do
-        expect(command.execute).to be_an Error
-        expect(command.execute.code).to eq "AUTH"
-        expect(command.execute.message).to eq "not implemented yet"
+        error = command.execute
+
+        expect(error).to be_an Error
+        expect(error.code).to eq "AUTH"
+        expect(error.message).to eq "not implemented yet"
       end
     end
 
@@ -50,9 +52,11 @@ RSpec.describe Rediss::Commands::Hello do
       let(:arguments) { [2] }
 
       it "returns an error" do
-        expect(command.execute).to be_an Error
-        expect(command.execute.code).to eq "NOPROTO"
-        expect(command.execute.message).to eq "unsupported protocol version"
+        error = command.execute
+
+        expect(error).to be_an Error
+        expect(error.code).to eq "NOPROTO"
+        expect(error.message).to eq "unsupported protocol version"
       end
     end
   end
