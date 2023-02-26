@@ -8,6 +8,8 @@ module Rediss
 
     abstract!
 
+    class_attribute :arity, default: 1
+
     sig { returns(T::Array[Rediss::Type]) }
     attr_reader :arguments
 

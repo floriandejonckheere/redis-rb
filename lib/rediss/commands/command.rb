@@ -4,6 +4,8 @@
 module Rediss
   module Commands
     class Command < Rediss::Command
+      self.arity = -1
+
       def execute
         # TODO: return all details when no subcommand is specified
         return Error.new("ERR", "no subcommand specified") if arguments.empty?

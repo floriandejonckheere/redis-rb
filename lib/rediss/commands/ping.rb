@@ -4,6 +4,8 @@
 module Rediss
   module Commands
     class Ping < Rediss::Command
+      self.arity = -1
+
       def execute
         return Error.new("ERR", "wrong number of arguments for 'PING' command") if arguments.count > 1
 
