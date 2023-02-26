@@ -23,6 +23,8 @@ module Rediss
           .new(socket)
           .read
 
+        debug "Read #{type.to_resp3.inspect}"
+
         break unless type
 
         # Parse command
@@ -34,6 +36,8 @@ module Rediss
         result = command
           .tap(&:validate)
           .execute
+
+        debug "Write #{result.to_resp3.inspect}"
 
         socket.write(result.to_resp3)
       rescue ArgumentError => e
