@@ -13,8 +13,7 @@ module Rediss
       @options = {
         host: "127.0.0.1",
         port: 6379,
-        verbose: false,
-        quiet: false,
+        log_level: Logger::INFO,
       }
 
       # Parse command-line arguments
@@ -22,8 +21,7 @@ module Rediss
     end
 
     def start
-      logger.level = Logger::DEBUG if options[:verbose]
-      logger.level = Logger::FATAL if options[:quiet]
+      logger.level = options[:log_level]
 
       Async do
         Server
@@ -38,8 +36,7 @@ module Rediss
 
     def parser
       @parser ||= OptionParser.new("#{File.basename($PROGRAM_NAME)} [options]") do |o|
-        o.on("-v", "--verbose", "Turn on verbose logging")
-        o.on("-q", "--quiet", "Turn off logging")
+        o.on("--log-level LOG_LEVEL") { |level| options[:log_level] = Logger.const_get(level.upcase) }
         o.on("-h", "--host HOST", "Host to bind to")
         o.on("-p", "--port PORT", Integer, "Port to bind to")
 
