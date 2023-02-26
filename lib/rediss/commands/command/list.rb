@@ -9,8 +9,7 @@ module Rediss
           # TODO: implement FILTERBY/ACLCAT/PATTERN arguments
           return Error.new("ERR", "wrong number of arguments for 'COMMAND LIST' command") if arguments.any?
 
-          Rediss::Command
-            .subclasses
+          commands
             .map(&:name)
             .compact
             .map(&:demodulize)

@@ -30,6 +30,13 @@ module Rediss
           .new(arguments)
           .execute
       end
+
+      protected
+
+      def commands
+        Rediss::Command
+          .subclasses
+      end
     end
   end
 end

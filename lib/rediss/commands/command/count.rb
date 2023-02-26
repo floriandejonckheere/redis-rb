@@ -8,8 +8,7 @@ module Rediss
         def execute
           return Error.new("ERR", "wrong number of arguments for 'COMMAND COUNT' command") if arguments.any?
 
-          Rediss::Command
-            .subclasses
+          commands
             .count
         end
       end
