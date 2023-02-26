@@ -8,7 +8,11 @@ module Rediss
 
     abstract!
 
+    # Number of arguments accepted
     class_attribute :arity, default: 1
+
+    # Flags set on the command
+    class_attribute :flags, default: []
 
     sig { returns(T::Array[Rediss::Type]) }
     attr_reader :arguments

@@ -5,6 +5,7 @@ module Rediss
   module Commands
     class Command < Rediss::Command
       self.arity = -1
+      self.flags = [:loading, :stale]
 
       def execute
         # TODO: return all details when no subcommand is specified

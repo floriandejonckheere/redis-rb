@@ -5,6 +5,7 @@ module Rediss
   module Commands
     class Hello < Rediss::Command
       self.arity = -1
+      self.flags = [:noscript, :loading, :stale, :fast, :no_auth, :allow_busy]
 
       def execute
         return Error.new("AUTH", "not implemented yet") if arguments.count > 1
