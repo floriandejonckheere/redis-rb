@@ -10,10 +10,7 @@ module Rediss
           return Error.new("ERR", "wrong number of arguments for 'COMMAND LIST' command") if arguments.any?
 
           commands
-            .map(&:name)
-            .compact
-            .map(&:demodulize)
-            .map(&:underscore)
+            .map(&:command_name)
         end
       end
     end

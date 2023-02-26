@@ -20,5 +20,10 @@ module Rediss
 
     sig { abstract.returns(Rediss::Type) }
     def execute; end
+
+    sig { returns(String) }
+    def self.command_name
+      T.cast(name, String).demodulize.underscore
+    end
   end
 end
