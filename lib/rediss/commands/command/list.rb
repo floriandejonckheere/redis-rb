@@ -12,6 +12,7 @@ module Rediss
           Rediss::Command
             .subclasses
             .map(&:name)
+            .compact
             .map(&:demodulize)
             .map(&:downcase)
         end

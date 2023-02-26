@@ -175,7 +175,7 @@ module AttrExtras::Mixin
   def cattr_implement(*names); end
 
   # source://attr_extras//lib/attr_extras/explicit.rb#81
-  def method_object(*names); end
+  def method_object(*names, &block); end
 
   # source://attr_extras//lib/attr_extras/explicit.rb#35
   def pattr_initialize(*names, &block); end
@@ -184,7 +184,7 @@ module AttrExtras::Mixin
   def rattr_initialize(*names, &block); end
 
   # source://attr_extras//lib/attr_extras/explicit.rb#63
-  def static_facade(method_name_or_names, *names); end
+  def static_facade(method_name_or_names, *names, &block); end
 
   # source://attr_extras//lib/attr_extras/explicit.rb#42
   def vattr_initialize(*names, &block); end
