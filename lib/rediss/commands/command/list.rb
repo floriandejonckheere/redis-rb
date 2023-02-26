@@ -13,7 +13,7 @@ module Rediss
             .map(&:name)
             .compact
             .map(&:demodulize)
-            .map(&:downcase)
+            .map(&:underscore)
         end
       end
     end
