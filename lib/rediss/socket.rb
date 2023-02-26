@@ -23,6 +23,7 @@ module Rediss
              :read,
              :write,
              :peeraddr,
+             :close,
              to: :io
   end
 end

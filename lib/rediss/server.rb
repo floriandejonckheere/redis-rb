@@ -18,12 +18,19 @@ module Rediss
     def start
       info "Starting server on #{options[:host]}:#{options[:port]}"
 
-      server.accept_each do |socket|
-        socket = Socket.new(socket)
+      loop do
+        socket, _address = server.accept
 
-        Handler
-          .new(socket)
-          .start
+        Async do
+          # Wrap socket
+          socket = Socket.new(socket)
+
+          Handler
+            .new(socket)
+            .start
+        ensure
+          socket.close
+        end
       end
     end
 
