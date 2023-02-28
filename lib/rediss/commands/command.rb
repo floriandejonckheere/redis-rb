@@ -6,6 +6,13 @@ module Rediss
     class Command < Rediss::Command
       self.arity = -1
       self.flags = [:loading, :stale]
+      self.metadata = {
+        summary: "Get array of Redis command details",
+        since: "2.8.13",
+        group: "server",
+        complexity: "O(N) where N is the total number of Redis commands",
+        subcommands: [], # TODO: metadata on subcommands
+      }
 
       def execute
         return Info.new([]).execute if arguments.empty?

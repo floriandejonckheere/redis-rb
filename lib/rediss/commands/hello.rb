@@ -6,6 +6,25 @@ module Rediss
     class Hello < Rediss::Command
       self.arity = -1
       self.flags = [:noscript, :loading, :stale, :fast, :no_auth, :allow_busy]
+      self.metadata = {
+        summary: "Handshake with Redis",
+        since: "6.0.0",
+        group: "connection",
+        complexity: "O(1)",
+        history: [
+          ["6.2.0", "`protover` made optional; when called without arguments the command reports the current connection's context."],
+        ],
+        arguments: [
+          { name: "arguments", type: "block", flags: [:optional], arguments: [
+            { name: "protover", type: "integer" },
+            { name: "username_password", type: "block", token: "AUTH", flags: [:optional], arguments: [
+              { name: "username", type: "string" },
+              { name: "password", type: "string" },
+            ], },
+            { name: "clientname", type: "string", token: "SETNAME", flags: [:optional] },
+          ], },
+        ],
+      }
 
       def execute
         return Error.new("AUTH", "not implemented yet") if arguments.count > 1

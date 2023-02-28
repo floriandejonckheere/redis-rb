@@ -14,6 +14,9 @@ module Rediss
     # Flags set on the command
     class_attribute :flags, default: []
 
+    # Command metadata
+    class_attribute :metadata, default: {}
+
     sig { returns(T::Array[Rediss::Type]) }
     attr_reader :arguments
 
