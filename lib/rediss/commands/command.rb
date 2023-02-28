@@ -8,8 +8,7 @@ module Rediss
       self.flags = [:loading, :stale]
 
       def execute
-        # TODO: return all details when no subcommand is specified
-        return Error.new("ERR", "no subcommand specified") if arguments.empty?
+        return Info.new([]).execute if arguments.empty?
 
         subcommand = arguments
           .shift

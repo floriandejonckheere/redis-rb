@@ -6,7 +6,12 @@ RSpec.describe Rediss::Commands::Command do
   let(:arguments) { ["count"] }
 
   describe "#execute" do
-    xit "returns the same responses as Redis"
+    it "returns the same responses as Redis" do
+      expected = $redis.with { |r| r.command(arguments) }
+
+      # FIXME: change less than to equal when all commands are implemented
+      expect(command.execute).to be < expected
+    end
 
     it "instantiates a subcommand" do
       allow(Rediss::Commands::Command::Count)
@@ -23,12 +28,16 @@ RSpec.describe Rediss::Commands::Command do
     context "when no arguments are passed" do
       let(:arguments) { [] }
 
-      it "returns an error" do
-        error = command.execute
+      it "instantiates an info command" do
+        allow(Rediss::Commands::Command::Info)
+          .to receive(:new)
+          .and_call_original
 
-        expect(error).to be_an Error
-        expect(error.code).to eq "ERR"
-        expect(error.message).to eq "no subcommand specified"
+        command.execute
+
+        expect(Rediss::Commands::Command::Info)
+          .to have_received(:new)
+          .with([])
       end
     end
 
