@@ -12,6 +12,14 @@ RSpec.describe Hash do
 
   let(:parser) { Rediss::TypeParser.new(rsocket) }
 
+  describe "#deep_flatten" do
+    let(:value) { { "hello" => { "world" => "!" }, "goodbye" => ["cruel", { "world" => "!" }] } }
+
+    it "deep flattens the hash" do
+      expect(type.deep_flatten).to eq ["hello", ["world", "!"], "goodbye", ["cruel", ["world", "!"]]]
+    end
+  end
+
   describe "#to_resp3" do
     it "serializes the type" do
       expect(type.to_resp3).to eq "%2\r\n$5\r\nhello\r\n$5\r\nworld\r\n"

@@ -8,6 +8,11 @@ class Array
 
   extend T::Sig
 
+  sig { returns(T::Array[Rediss::Type]) }
+  def deep_flatten
+    map { |e| T.cast(e, ActiveSupport::Tryable).try(:deep_flatten) || e }
+  end
+
   sig { override.returns(String) }
   def to_resp3
     "*#{count}\r\n#{map { |e| T.cast(e, Rediss::Type).to_resp3 }.join}"

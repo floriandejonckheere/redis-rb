@@ -8,6 +8,11 @@ class Hash
 
   extend T::Sig
 
+  sig { returns(T::Array[Rediss::Type]) }
+  def deep_flatten
+    transform_values { |v| T.cast(v, ActiveSupport::Tryable).try(:deep_flatten) || v }.flatten
+  end
+
   sig { override.returns(String) }
   def to_resp3
     "%#{count * 2}\r\n#{flat_map { |k, v| [T.cast(k, Rediss::Type).to_resp3, T.cast(v, Rediss::Type).to_resp3] }.join}"
