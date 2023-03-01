@@ -27,7 +27,7 @@ module Rediss
 
             # Return command info
             [
-              klass.name.demodulize.underscore, # name
+              klass.command_name, # name
               klass.arity, # arity
               klass.flags.map(&:to_s), # flags
               0, # TODO: first key
