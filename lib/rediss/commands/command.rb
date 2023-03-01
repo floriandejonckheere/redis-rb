@@ -25,15 +25,15 @@ module Rediss
 
         # Infer subcommand name
         name = subcommand
-          .downcase
-          .camelize
+          .upcase
 
         # Infer subcommand class
-        # TODO: use Registry to fetch subcommand class
-        klass = "Rediss::Commands::Command::#{name}"
-          .safe_constantize
+        klass = self
+          .class
+          .subcommands
+          .fetch(name, nil)
 
-        return Error.new("ERR", "unknown subcommand '#{subcommand.upcase}'") unless klass
+        return Error.new("ERR", "unknown subcommand '#{name}'") unless klass
 
         # Instantiate, validate, and execute subcommand class
         klass
@@ -42,7 +42,7 @@ module Rediss
           .execute
       end
     end
-
-    Registry.register("COMMAND", Command)
   end
+
+  Command.subcommands["COMMAND"] = Commands::Command
 end

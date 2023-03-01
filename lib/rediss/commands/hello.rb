@@ -47,7 +47,7 @@ module Rediss
         T.cast(arguments.first || Rediss::PROTOCOL, Integer)
       end
     end
-
-    Registry.register("HELLO", Hello)
   end
+
+  Command.subcommands["HELLO"] = Commands::Hello
 end

@@ -51,5 +51,10 @@ module Rediss
     def self.command_name
       T.cast(name, String).demodulize.underscore
     end
+
+    sig { returns(T::Hash[String, T.class_of(Rediss::Command)]) }
+    def self.subcommands
+      @subcommands ||= {}
+    end
   end
 end

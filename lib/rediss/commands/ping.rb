@@ -22,7 +22,7 @@ module Rediss
         arguments.first || "PONG"
       end
     end
-
-    Registry.register("PING", Ping)
   end
+
+  Command.subcommands["PING"] = Commands::Ping
 end

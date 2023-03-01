@@ -28,11 +28,11 @@ module Rediss
         .upcase
 
       # Fetch command class
-      klass = Registry
-        .commands
+      klass = Command
+        .subcommands
         .fetch(name, nil)
 
-      raise ArgumentError, "unknown command '#{command}'" unless klass
+      raise ArgumentError, "unknown command '#{name}'" unless klass
 
       # Instantiate command class
       klass

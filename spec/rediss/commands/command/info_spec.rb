@@ -6,7 +6,7 @@ RSpec.describe Rediss::Commands::Command::Info do
   let(:arguments) { [] }
 
   describe "#execute" do
-    Rediss::Registry.commands.each_key do |command_name|
+    Rediss::Command.subcommands.each_key do |command_name|
       context "when '#{command_name}' is passed" do
         let(:arguments) { [command_name] }
 

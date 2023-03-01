@@ -7,7 +7,7 @@ module Rediss
       class Info < Command
         def execute
           # Display info on all commands by default
-          @arguments = Registry.commands.keys if arguments.empty?
+          @arguments = Rediss::Command.subcommands.keys if arguments.empty?
 
           arguments.map do |command|
             # Assert command is a string
@@ -18,8 +18,8 @@ module Rediss
               .upcase
 
             # Fetch command class
-            klass = Registry
-              .commands
+            klass = Rediss::Command
+              .subcommands
               .fetch(name, nil)
 
             # Return nil if command does not exist
@@ -41,6 +41,8 @@ module Rediss
           end
         end
       end
+
+      subcommands["INFO"] = Info
     end
   end
 end

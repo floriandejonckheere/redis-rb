@@ -8,11 +8,13 @@ module Rediss
         def execute
           return Error.new("ERR", "wrong number of arguments for 'COMMAND COUNT' command") if arguments.any?
 
-          Registry
-            .commands
+          Rediss::Command
+            .subcommands
             .count
         end
       end
+
+      subcommands["COUNT"] = Count
     end
   end
 end
