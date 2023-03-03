@@ -38,7 +38,7 @@ module Rediss
             # Embed subcommands in metadata
             metadata = klass
               .metadata
-              .merge(subcommands: klass.subcommands.each_value.map { |k| ["#{klass.command_name}|#{k.command_name}", k.metadata] }.presence)
+              .merge(subcommands: klass.subcommands.each_value.flat_map { |k| ["#{klass.command_name}|#{k.command_name}", k.metadata] }.presence)
               .compact
               .deep_stringify_keys
               .deep_flatten
@@ -51,6 +51,8 @@ module Rediss
           end
         end
       end
+
+      subcommands["DOCS"] = Docs
     end
   end
 end
