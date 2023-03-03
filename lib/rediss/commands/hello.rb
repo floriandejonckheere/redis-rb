@@ -15,13 +15,13 @@ module Rediss
           ["6.2.0", "`protover` made optional; when called without arguments the command reports the current connection's context."],
         ],
         arguments: [
-          { name: "arguments", type: "block", flags: [:optional], arguments: [
+          { name: "arguments", type: "block", flags: ["optional"], arguments: [
             { name: "protover", type: "integer" },
-            { name: "username_password", type: "block", token: "AUTH", flags: [:optional], arguments: [
+            { name: "username_password", type: "block", token: "AUTH", flags: ["optional"], arguments: [
               { name: "username", type: "string" },
               { name: "password", type: "string" },
             ], },
-            { name: "clientname", type: "string", token: "SETNAME", flags: [:optional] },
+            { name: "clientname", type: "string", token: "SETNAME", flags: ["optional"] },
           ], },
         ],
       }

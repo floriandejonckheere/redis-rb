@@ -4,15 +4,12 @@
 module Rediss
   module Commands
     class Command
-      class Info < Command
+      class Docs < Command
         self.metadata = {
-          summary: "Get array of specific Redis command details, or all when no argument is given.",
-          since: "2.8.13",
+          summary: "Get array of specific Redis command documentation",
+          since: "7.0.0",
           group: "server",
           complexity: "O(N) where N is the number of commands to look up",
-          history: [
-            ["7.0.0", "Allowed to be called with no argument to get info on all commands."],
-          ],
           arguments: [
             { name: "command-name", type: "string", flags: ["optional", "multiple"] },
           ],
@@ -22,7 +19,7 @@ module Rediss
           # Display info on all commands by default
           @arguments = Rediss::Command.subcommands.keys if arguments.empty?
 
-          arguments.map do |command|
+          arguments.flat_map do |command|
             # Assert command is a string
             command = T.cast(command, String)
 
@@ -38,24 +35,22 @@ module Rediss
             # Return nil if command does not exist
             next unless klass
 
-            # Return command info
+            # Embed subcommands in metadata
+            metadata = klass
+              .metadata
+              .merge(subcommands: klass.subcommands.each_value.map { |k| ["#{klass.command_name}|#{k.command_name}", k.metadata] }.presence)
+              .compact
+              .deep_stringify_keys
+              .deep_flatten
+
+            # Return command documentation
             [
-              klass.command_name, # name
-              klass.arity, # arity
-              klass.flags.map(&:to_s), # flags
-              0, # TODO: first key
-              0, # TODO: last key
-              0, # TODO: step
-              [], # TODO: acl categories
-              [], # TODO: tips
-              [], # TODO: key specifications
-              [], # TODO: subcommands
+              name.downcase,
+              metadata,
             ]
           end
         end
       end
-
-      subcommands["INFO"] = Info
     end
   end
 end

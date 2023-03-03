@@ -12,7 +12,7 @@ module Rediss
         group: "connection",
         complexity: "O(1)",
         arguments: [
-          { name: "message", type: "string", flags: [:optional] },
+          { name: "message", type: "string", flags: ["optional"] },
         ],
       }
 

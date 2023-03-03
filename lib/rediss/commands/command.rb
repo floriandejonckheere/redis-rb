@@ -11,7 +11,6 @@ module Rediss
         since: "2.8.13",
         group: "server",
         complexity: "O(N) where N is the total number of Redis commands",
-        subcommands: [], # TODO: metadata on subcommands
       }
 
       def execute
