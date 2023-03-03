@@ -3,6 +3,8 @@
 require "simplecov"
 SimpleCov.start
 
+require "super_diff/rspec"
+require "super_diff/active_support"
 require "timecop"
 
 require File.expand_path("../config/application", __dir__)
