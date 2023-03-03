@@ -10,20 +10,27 @@ gemspec
 
 gem "async-io", github: "floriandejonckheere/async-io"
 
-group :test, :development do
-  # Generic connection pool
-  gem "connection_pool"
+group :development do
+  # Debugger
+  gem "debug"
 
-  # Redis client
-  gem "redis"
+  # Task runner
+  gem "rake"
+
+  # Git hooks
+  gem "overcommit"
+
+  # Ruby static type checker
+  gem "sorbet", "~> 0.5"
+  gem "tapioca", require: false
 end
 
-group :development do
+group :test do
   # Change environment variables at runtime
   gem "climate_control"
 
-  # Debugger
-  gem "debug"
+  # Generic connection pool
+  gem "connection_pool"
 
   # Object factories
   gem "factory_bot"
@@ -31,11 +38,8 @@ group :development do
   # Random data generator
   gem "ffaker"
 
-  # Git hooks
-  gem "overcommit"
-
-  # Task runner
-  gem "rake"
+  # Redis client
+  gem "redis"
 
   # Behaviour-driven testing
   gem "rspec"
@@ -54,10 +58,6 @@ group :development do
 
   # Display rich diffs in RSpec
   gem "super_diff"
-
-  # Ruby static type checker
-  gem "sorbet", "~> 0.5"
-  gem "tapioca", require: false
 
   # Change time at runtime
   gem "timecop"
