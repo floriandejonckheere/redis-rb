@@ -5,6 +5,8 @@ module Rediss
   module Commands
     class Command
       class Help < Command
+        command "HELP"
+
         self.metadata = {
           summary: "Show helpful text about the different subcommands",
           since: "5.0.0",
@@ -16,8 +18,6 @@ module Rediss
           raise NotImplementedError
         end
       end
-
-      subcommands["HELP"] = Help
     end
   end
 end

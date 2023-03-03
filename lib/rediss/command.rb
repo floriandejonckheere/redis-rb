@@ -47,14 +47,25 @@ module Rediss
       raise ArgumentError, "wrong number of arguments for '#{self.class.command_name}' command"
     end
 
-    sig { returns(String) }
-    def self.command_name
-      T.cast(name, String).demodulize.underscore
-    end
-
     sig { returns(T::Hash[String, T.class_of(Rediss::Command)]) }
     def self.subcommands
       @subcommands ||= {}
+    end
+
+    sig { params(command_name: String).void }
+    def self.command(command_name)
+      # Set command name
+      @command_name = command_name
+
+      # Register command as subcommand of the parent class
+      T.cast(superclass, T.untyped)&.subcommands&.[]=(command_name, self)
+
+      nil
+    end
+
+    sig { returns(String) }
+    def self.command_name # rubocop:disable Style/TrivialAccessors
+      @command_name
     end
   end
 end

@@ -4,6 +4,8 @@
 module Rediss
   module Commands
     class Hello < Rediss::Command
+      command "HELLO"
+
       self.arity = -1
       self.flags = [:noscript, :loading, :stale, :fast, :no_auth, :allow_busy]
       self.metadata = {
@@ -48,6 +50,4 @@ module Rediss
       end
     end
   end
-
-  Command.subcommands["HELLO"] = Commands::Hello
 end

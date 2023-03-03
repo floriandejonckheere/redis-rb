@@ -4,6 +4,8 @@
 module Rediss
   module Commands
     class Ping < Rediss::Command
+      command "PING"
+
       self.arity = -1
       self.flags = [:fast]
       self.metadata = {
@@ -23,6 +25,4 @@ module Rediss
       end
     end
   end
-
-  Command.subcommands["PING"] = Commands::Ping
 end

@@ -5,6 +5,8 @@ module Rediss
   module Commands
     class Command
       class GetKeys < Command
+        command "GETKEYS"
+
         self.metadata = {
           summary: "Extract keys given a full Redis command",
           since: "2.8.13",
@@ -15,14 +17,7 @@ module Rediss
         def execute
           raise NotImplementedError
         end
-
-        sig { returns(String) }
-        def self.command_name
-          "getkeys"
-        end
       end
-
-      subcommands["GETKEYS"] = GetKeys
     end
   end
 end

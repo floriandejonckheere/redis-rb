@@ -5,13 +5,31 @@ RSpec.describe Rediss::Command do
 
   let(:command_class) do
     Class.new(described_class) do
-      def self.name
-        "Rediss::Commands::Test"
-      end
+      command "TEST"
+    end
+  end
+
+  let(:subcommand_class) do
+    Class.new(command_class) do
+      command "SUBTEST"
     end
   end
 
   let(:arguments) { [] }
+
+  describe ".command" do
+    it "registers the command as a subcommand of the parent class" do
+      expect(described_class.subcommands)
+        .to include "TEST" => command_class
+
+      expect(command_class.subcommands)
+        .to include "SUBTEST" => subcommand_class
+    end
+
+    it "sets the command name" do
+      expect(command_class.command_name).to eq "TEST"
+    end
+  end
 
   describe "#validate" do
     context "when arity is 1" do

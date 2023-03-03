@@ -5,6 +5,8 @@ module Rediss
   module Commands
     class Command
       class Docs < Command
+        command "DOCS"
+
         self.metadata = {
           summary: "Get array of specific Redis command documentation",
           since: "7.0.0",
@@ -38,7 +40,7 @@ module Rediss
             # Embed subcommands in metadata
             metadata = klass
               .metadata
-              .merge(subcommands: klass.subcommands.each_value.flat_map { |k| ["#{klass.command_name}|#{k.command_name}", k.metadata] }.presence)
+              .merge(subcommands: klass.subcommands.each_value.flat_map { |k| ["#{klass.command_name.downcase}|#{k.command_name.downcase}", k.metadata] }.presence)
               .compact
               .deep_stringify_keys
               .deep_flatten
@@ -51,8 +53,6 @@ module Rediss
           end
         end
       end
-
-      subcommands["DOCS"] = Docs
     end
   end
 end

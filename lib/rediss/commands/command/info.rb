@@ -5,6 +5,8 @@ module Rediss
   module Commands
     class Command
       class Info < Command
+        command "INFO"
+
         self.metadata = {
           summary: "Get array of specific Redis command details, or all when no argument is given.",
           since: "2.8.13",
@@ -40,7 +42,7 @@ module Rediss
 
             # Return command info
             [
-              klass.command_name, # name
+              klass.command_name.downcase, # name
               klass.arity, # arity
               klass.flags.map(&:to_s), # flags
               0, # TODO: first key
@@ -54,8 +56,6 @@ module Rediss
           end
         end
       end
-
-      subcommands["INFO"] = Info
     end
   end
 end

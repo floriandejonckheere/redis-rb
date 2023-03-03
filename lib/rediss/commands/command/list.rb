@@ -5,6 +5,8 @@ module Rediss
   module Commands
     class Command
       class List < Command
+        command "LIST"
+
         self.metadata = {
           summary: "Get an array of Redis command names",
           since: "7.0.0",
@@ -27,10 +29,9 @@ module Rediss
             .subcommands
             .values
             .map(&:command_name)
+            .map(&:downcase)
         end
       end
-
-      subcommands["LIST"] = List
     end
   end
 end

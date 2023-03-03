@@ -5,6 +5,8 @@ module Rediss
   module Commands
     class Command
       class Count < Command
+        command "COUNT"
+
         self.metadata = {
           summary: "Get total number of Redis commands",
           since: "2.8.13",
@@ -20,8 +22,6 @@ module Rediss
             .count
         end
       end
-
-      subcommands["COUNT"] = Count
     end
   end
 end

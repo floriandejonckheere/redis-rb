@@ -4,6 +4,8 @@
 module Rediss
   module Commands
     class Command < Rediss::Command
+      command "COMMAND"
+
       self.arity = -1
       self.flags = [:loading, :stale]
       self.metadata = {
@@ -42,6 +44,4 @@ module Rediss
       end
     end
   end
-
-  Command.subcommands["COMMAND"] = Commands::Command
 end
