@@ -41,7 +41,11 @@ module Rediss
 
         socket.write(result.to_resp3)
       rescue ArgumentError => e
-        socket.write(Error.new("ERR", e.message).to_resp3)
+        error = Error.new("ERR", e.message)
+
+        debug "Write #{error.to_resp3.inspect}"
+
+        socket.write(error.to_resp3)
       end
     ensure
       info "Client #{address} disconnected"
