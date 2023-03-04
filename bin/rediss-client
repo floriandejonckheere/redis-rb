@@ -6,7 +6,7 @@ require_relative "../config/application"
 require "rediss"
 
 begin
-  Rediss::Server
+  Rediss::Client
     .new(ARGV)
     .start
 end
