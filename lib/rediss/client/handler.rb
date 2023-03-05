@@ -43,7 +43,7 @@ module Rediss
 
           break unless type
 
-          puts type.inspect
+          puts type.to_pretty_s
         end
       end
 
