@@ -13,6 +13,11 @@ class String
     "$#{length}\r\n#{self}\r\n"
   end
 
+  sig { override.params(indent: Integer).returns(String) }
+  def to_pretty_s(indent: 0)
+    to_s
+  end
+
   sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
   def self.from_resp3(type, socket, &block)
     case type
