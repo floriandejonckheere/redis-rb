@@ -19,6 +19,18 @@ RSpec.describe Error do
     end
   end
 
+  describe "#to_pretty_s" do
+    it "pretty prints the type" do
+      expect(type.to_pretty_s).to eq "ERR hello world"
+    end
+
+    context "when the indent is non-zero" do
+      it "pretty prints the type" do
+        expect(type.to_pretty_s(indent: 2)).to eq "ERR hello world"
+      end
+    end
+  end
+
   describe ".from_resp3" do
     it "deserializes blob errors" do
       wsocket.write("15\r\nERR hello world\r\n")

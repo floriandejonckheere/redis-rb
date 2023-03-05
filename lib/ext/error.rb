@@ -25,6 +25,11 @@ class Error
     "!#{code.length + 1 + message.length}\r\n#{code} #{message}\r\n"
   end
 
+  sig { override.params(indent: Integer).returns(String) }
+  def to_pretty_s(indent: 0)
+    "#{code} #{message}"
+  end
+
   sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
   def self.from_resp3(type, socket, &block)
     case type
