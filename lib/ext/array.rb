@@ -28,7 +28,7 @@ class Array
     # Then, pretty print the value recursively and replace the newlines with spaces (normal indent plus right justify
     # of array indices: maximum length of the index plus the parenthesis plus a space).
     each_with_index
-      .map { |e, i| "#{INDENT * indent}#{i.to_s.rjust(max_length)}) #{e.to_pretty_s.gsub(/\n/, "\n#{INDENT * indent}#{' ' * (max_length + 2)}")}" }
+      .map { |e, i| "#{INDENT * indent}#{i.to_s.rjust(max_length)}) #{T.cast(e, Rediss::Type).to_pretty_s.gsub(/\n/, "\n#{INDENT * indent}#{' ' * (max_length + 2)}")}" }
       .join("\n")
   end
 
