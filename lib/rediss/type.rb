@@ -6,10 +6,16 @@ module Rediss
     extend T::Sig
     extend T::Helpers
 
+    # Indentation for pretty printing
+    INDENT = "  "
+
     interface!
 
     sig { abstract.returns(String) }
     def to_resp3; end
+
+    sig { abstract.params(indent: Integer).returns(String) }
+    def to_pretty_s(indent: 0); end
 
     module ClassMethods
       extend T::Sig
