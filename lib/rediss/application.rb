@@ -16,6 +16,9 @@ module Rediss
     def initialize(args)
       # Parse command-line arguments
       self.class.parser.parse!(args, into: options)
+
+      # Set log level to debug in development
+      logger.level = Logger::DEBUG if ENV["ENV"] == "development"
     end
   end
 end
