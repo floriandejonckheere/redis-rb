@@ -18,6 +18,18 @@ RSpec.describe Integer do
     end
   end
 
+  describe "#to_pretty_s" do
+    it "pretty prints the type" do
+      expect(type.to_pretty_s).to eq "(integer) 3"
+    end
+
+    context "when the indent is non-zero" do
+      it "pretty prints the type" do
+        expect(type.to_pretty_s(indent: 2)).to eq "(integer) 3"
+      end
+    end
+  end
+
   describe ".from_resp3" do
     it "deserializes integers" do
       wsocket.write("3\r\n")
