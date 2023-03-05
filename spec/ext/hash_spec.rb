@@ -30,7 +30,7 @@ RSpec.describe Hash do
     let(:value) { { "hello" => { "world" => "!" }, "goodbye" => ["cruel", { "world" => "!" }] } }
 
     it "pretty prints the type" do
-      expect(type.to_pretty_s).to eq "0) \"hello\"\n1) 0) \"world\"\n   1) \"!\"\n2) \"goodbye\"\n3) 0) \"cruel\"\n   1) 0) \"world\"\n      1) \"!\""
+      expect(type.to_pretty_s).to eq "1) \"hello\"\n2) 1) \"world\"\n   2) \"!\"\n3) \"goodbye\"\n4) 1) \"cruel\"\n   2) 1) \"world\"\n      2) \"!\""
     end
   end
 
