@@ -3,7 +3,7 @@
 RSpec.describe Rediss::Commands::Hello do
   subject(:command) { described_class.new(arguments) }
 
-  let(:arguments) { [3] }
+  let(:arguments) { ["3"] }
 
   describe "#execute" do
     it "returns the same responses as Redis" do

@@ -46,7 +46,7 @@ module Rediss
       private
 
       def version
-        T.cast(arguments.first || Rediss::PROTOCOL, Integer)
+        T.cast(arguments.first&.to_i || Rediss::PROTOCOL, Integer)
       end
     end
   end
