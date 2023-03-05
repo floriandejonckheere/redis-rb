@@ -31,6 +31,12 @@ RSpec.describe Array do
       expect(type.to_pretty_s).to eq "0) hello\n1) world"
     end
 
+    context "when the array is empty" do
+      it "pretty prints the type" do
+        expect(described_class.new.to_pretty_s).to eq "(empty array)"
+      end
+    end
+
     context "when the indent is non-zero" do
       let(:value) { ["hello", "world"] }
 

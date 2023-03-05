@@ -20,6 +20,8 @@ class Array
 
   sig { override.params(indent: Integer).returns(String) }
   def to_pretty_s(indent: 0)
+    return "(empty array)" if empty?
+
     max_length = count.to_s.length
 
     # First, indent each element. Then, right justify the index of each element by the maximum length of the index.
