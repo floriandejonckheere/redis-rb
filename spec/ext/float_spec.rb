@@ -24,21 +24,33 @@ RSpec.describe Float do
         expect(value.to_resp3).to eq ",nan\r\n"
       end
     end
-  end
 
-  context "when the value is infinity" do
-    let(:value) { Float::INFINITY }
+    context "when the value is infinity" do
+      let(:value) { Float::INFINITY }
 
-    it "serializes the type" do
-      expect(type.to_resp3).to eq ",inf\r\n"
+      it "serializes the type" do
+        expect(type.to_resp3).to eq ",inf\r\n"
+      end
+    end
+
+    context "when the value is negative infinity" do
+      let(:value) { -Float::INFINITY }
+
+      it "serializes the type" do
+        expect(value.to_resp3).to eq ",-inf\r\n"
+      end
     end
   end
 
-  context "when the value is negative infinity" do
-    let(:value) { -Float::INFINITY }
+  describe "#to_pretty_s" do
+    it "pretty prints the type" do
+      expect(type.to_pretty_s).to eq "(float) 1.23"
+    end
 
-    it "serializes the type" do
-      expect(value.to_resp3).to eq ",-inf\r\n"
+    context "when the indent is non-zero" do
+      it "pretty prints the type" do
+        expect(type.to_pretty_s(indent: 2)).to eq "(float) 1.23"
+      end
     end
   end
 
