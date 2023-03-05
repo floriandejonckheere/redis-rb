@@ -9,7 +9,7 @@ module Rediss
     argument "-p", "--port PORT", Integer, "Port to connect to"
 
     defaults host: "127.0.0.1",
-             port: 6379
+             port: 6378
 
     sig { void }
     def start
