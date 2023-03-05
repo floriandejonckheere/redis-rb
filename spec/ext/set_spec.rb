@@ -20,7 +20,7 @@ RSpec.describe Set do
 
   describe "#to_pretty_s" do
     it "pretty prints the type" do
-      expect(type.to_pretty_s).to eq "0) hello\n1) world"
+      expect(type.to_pretty_s).to eq "0) \"hello\"\n1) \"world\""
     end
 
     context "when the array is empty" do
@@ -33,7 +33,7 @@ RSpec.describe Set do
       let(:value) { ["hello", "world"] }
 
       it "indents the values" do
-        expect(type.to_pretty_s(indent: 2)).to eq "    0) hello\n    1) world"
+        expect(type.to_pretty_s(indent: 2)).to eq "    0) \"hello\"\n    1) \"world\""
       end
     end
 
@@ -41,12 +41,12 @@ RSpec.describe Set do
       let(:value) { ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"] }
 
       it "right justifies the values" do
-        expect(type.to_pretty_s).to eq " 0) a\n 1) b\n 2) c\n 3) d\n 4) e\n 5) f\n 6) g\n 7) h\n 8) i\n 9) j\n10) k"
+        expect(type.to_pretty_s).to eq " 0) \"a\"\n 1) \"b\"\n 2) \"c\"\n 3) \"d\"\n 4) \"e\"\n 5) \"f\"\n 6) \"g\"\n 7) \"h\"\n 8) \"i\"\n 9) \"j\"\n10) \"k\""
       end
 
       context "when the indent is non-zero" do
         it "right justifies the values" do
-          expect(type.to_pretty_s(indent: 2)).to eq "     0) a\n     1) b\n     2) c\n     3) d\n     4) e\n     5) f\n     6) g\n     7) h\n     8) i\n     9) j\n    10) k"
+          expect(type.to_pretty_s(indent: 2)).to eq "     0) \"a\"\n     1) \"b\"\n     2) \"c\"\n     3) \"d\"\n     4) \"e\"\n     5) \"f\"\n     6) \"g\"\n     7) \"h\"\n     8) \"i\"\n     9) \"j\"\n    10) \"k\""
         end
       end
     end
@@ -55,12 +55,12 @@ RSpec.describe Set do
       let(:value) { ["hello", ["world"]] }
 
       it "pretty prints the type" do
-        expect(type.to_pretty_s).to eq "0) hello\n1) 0) world"
+        expect(type.to_pretty_s).to eq "0) \"hello\"\n1) 0) \"world\""
       end
 
       context "when the indent is non-zero" do
         it "indents the values" do
-          expect(type.to_pretty_s(indent: 2)).to eq "    0) hello\n    1) 0) world"
+          expect(type.to_pretty_s(indent: 2)).to eq "    0) \"hello\"\n    1) 0) \"world\""
         end
       end
 
@@ -68,12 +68,12 @@ RSpec.describe Set do
         let(:value) { ["hello", ["world"] * 11] }
 
         it "pretty prints the type" do
-          expect(type.to_pretty_s).to eq "0) hello\n1)  0) world\n    1) world\n    2) world\n    3) world\n    4) world\n    5) world\n    6) world\n    7) world\n    8) world\n    9) world\n   10) world"
+          expect(type.to_pretty_s).to eq "0) \"hello\"\n1)  0) \"world\"\n    1) \"world\"\n    2) \"world\"\n    3) \"world\"\n    4) \"world\"\n    5) \"world\"\n    6) \"world\"\n    7) \"world\"\n    8) \"world\"\n    9) \"world\"\n   10) \"world\""
         end
 
         context "when the indent is non-zero" do
           it "indents the values" do
-            expect(type.to_pretty_s(indent: 2)).to eq "    0) hello\n    1)  0) world\n        1) world\n        2) world\n        3) world\n        4) world\n        5) world\n        6) world\n        7) world\n        8) world\n        9) world\n       10) world"
+            expect(type.to_pretty_s(indent: 2)).to eq "    0) \"hello\"\n    1)  0) \"world\"\n        1) \"world\"\n        2) \"world\"\n        3) \"world\"\n        4) \"world\"\n        5) \"world\"\n        6) \"world\"\n        7) \"world\"\n        8) \"world\"\n        9) \"world\"\n       10) \"world\""
           end
         end
       end

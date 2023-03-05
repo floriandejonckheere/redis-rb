@@ -20,12 +20,12 @@ RSpec.describe String do
 
   describe "#to_pretty_s" do
     it "pretty prints the type" do
-      expect(type.to_pretty_s).to eq "hello world"
+      expect(type.to_pretty_s).to eq "\"hello world\""
     end
 
     context "when the indent is non-zero" do
       it "pretty prints the type" do
-        expect(type.to_pretty_s(indent: 2)).to eq "hello world"
+        expect(type.to_pretty_s(indent: 2)).to eq "\"hello world\""
       end
     end
   end

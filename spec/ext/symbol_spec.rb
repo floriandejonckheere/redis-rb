@@ -20,12 +20,12 @@ RSpec.describe Symbol do
 
   describe "#to_pretty_s" do
     it "pretty prints the type" do
-      expect(type.to_pretty_s).to eq "hello_world"
+      expect(type.to_pretty_s).to eq "\"hello_world\""
     end
 
     context "when the indent is non-zero" do
       it "pretty prints the type" do
-        expect(type.to_pretty_s(indent: 2)).to eq "hello_world"
+        expect(type.to_pretty_s(indent: 2)).to eq "\"hello_world\""
       end
     end
   end

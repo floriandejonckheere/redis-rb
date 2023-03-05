@@ -15,7 +15,7 @@ class Symbol
 
   sig { override.params(indent: Integer).returns(String) }
   def to_pretty_s(indent: 0)
-    to_s
+    to_s.inspect
   end
 
   sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
