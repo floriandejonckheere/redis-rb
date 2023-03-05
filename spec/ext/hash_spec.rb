@@ -26,6 +26,14 @@ RSpec.describe Hash do
     end
   end
 
+  describe "#to_pretty_s" do
+    let(:value) { { "hello" => { "world" => "!" }, "goodbye" => ["cruel", { "world" => "!" }] } }
+
+    it "pretty prints the type" do
+      expect(type.to_pretty_s).to eq "0) hello\n1) 0) world\n   1) !\n2) goodbye\n3) 0) cruel\n   1) 0) world\n      1) !"
+    end
+  end
+
   describe ".from_resp3" do
     it "deserializes the type" do
       wsocket.write("2\r\n$5\r\nhello\r\n$5\r\nworld\r\n")
