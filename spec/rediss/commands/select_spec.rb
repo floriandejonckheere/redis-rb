@@ -18,6 +18,10 @@ RSpec.describe Rediss::Commands::Select do
       expect(command.execute).to eq "OK"
     end
 
+    it "sets the selected database for the current connection" do
+      expect { command.execute }.to change { default_connection.database.index }.from(0).to 3
+    end
+
     context "when a non-integer value is passed" do
       let(:arguments) { ["foo"] }
 

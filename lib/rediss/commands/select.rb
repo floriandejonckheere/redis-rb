@@ -22,14 +22,17 @@ module Rediss
         return Error.new("ERR", "value is not an integer or out of range") unless index
         return Error.new("ERR", "DB index is out of range") unless index.in? 0..15
 
+        # Set the selected database for the current connection
+        connection.select(index)
+
         "OK"
       end
 
       private
 
       def index
-        T.cast(arguments.first, Integer)
-      rescue TypeError
+        Integer(T.cast(arguments.first, T.any(String, Integer)))
+      rescue TypeError, ArgumentError
         nil
       end
     end
