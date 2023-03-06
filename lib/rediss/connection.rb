@@ -14,9 +14,17 @@ module Rediss
     sig { returns(ConnectionType) }
     attr_reader :io
 
+    sig { returns(Database) }
+    attr_reader :database
+
     sig { params(io: ConnectionType).void }
     def initialize(io)
       @io = io
+      @database = Database[0]
+    end
+
+    def select(index)
+      @database = Database[index]
     end
 
     def address
