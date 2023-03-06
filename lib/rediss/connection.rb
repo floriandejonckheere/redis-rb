@@ -9,7 +9,7 @@ module Rediss
 
     # Adapter type for StringIO (used in specs) and Async::IO::TCPSocket (used at runtime)
     # Neither classes actually inherit from IO
-    ConnectionType = T.type_alias { T.any(IO, StringIO, Async::IO::TCPSocket) }
+    ConnectionType = T.type_alias { T.any(StringIO, Async::IO::TCPSocket) }
 
     sig { returns(ConnectionType) }
     attr_reader :io

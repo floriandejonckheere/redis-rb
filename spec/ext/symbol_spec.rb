@@ -5,12 +5,7 @@ RSpec.describe Symbol do
 
   let(:value) { :hello_world }
 
-  let(:pipes) { IO.pipe }
-
-  let(:read_connection) { Rediss::Connection.new(pipes.first) }
-  let(:write_connection) { pipes.last }
-
-  let(:parser) { Rediss::TypeParser.new(read_connection) }
+  let(:parser) { Rediss::TypeParser.new(default_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -32,7 +27,7 @@ RSpec.describe Symbol do
 
   describe ".from_resp3" do
     it "raises an error" do
-      expect { described_class.from_resp3("$", read_connection) { parser.read } }.to raise_error(ArgumentError, "cannot deserialize symbols")
+      expect { described_class.from_resp3("$", default_connection) { parser.read } }.to raise_error(ArgumentError, "cannot deserialize symbols")
     end
   end
 end

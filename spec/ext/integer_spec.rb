@@ -5,12 +5,7 @@ RSpec.describe Integer do
 
   let(:value) { 3 }
 
-  let(:pipes) { IO.pipe }
-
-  let(:read_connection) { Rediss::Connection.new(pipes.first) }
-  let(:write_connection) { pipes.last }
-
-  let(:parser) { Rediss::TypeParser.new(read_connection) }
+  let(:parser) { Rediss::TypeParser.new(default_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -32,17 +27,19 @@ RSpec.describe Integer do
 
   describe ".from_resp3" do
     it "deserializes integers" do
-      write_connection.write("3\r\n")
+      io.write("3\r\n")
+      io.rewind
 
-      type = described_class.from_resp3(":", read_connection) { parser.read }
+      type = described_class.from_resp3(":", default_connection) { parser.read }
 
       expect(type).to eq 3
     end
 
     it "deserializes big numbers" do
-      write_connection.write("3492890328409238509324850943850943825024385\r\n")
+      io.write("3492890328409238509324850943850943825024385\r\n")
+      io.rewind
 
-      type = described_class.from_resp3("(", read_connection) { parser.read }
+      type = described_class.from_resp3("(", default_connection) { parser.read }
 
       expect(type).to eq 3_492_890_328_409_238_509_324_850_943_850_943_825_024_385
     end

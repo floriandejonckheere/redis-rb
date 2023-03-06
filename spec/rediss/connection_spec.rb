@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Rediss::Connection do
-  subject(:connection) { described_class.new(read_connection) }
-
-  let(:pipes) { IO.pipe }
-
-  let(:read_connection) { pipes.first }
-  let(:write_connection) { pipes.last }
+  subject(:connection) { described_class.new(io) }
 
   describe "#database, #select" do
     it "defaults to database 0" do

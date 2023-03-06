@@ -5,12 +5,7 @@ RSpec.describe String do
 
   let(:value) { "hello world" }
 
-  let(:pipes) { IO.pipe }
-
-  let(:read_connection) { Rediss::Connection.new(pipes.first) }
-  let(:write_connection) { pipes.last }
-
-  let(:parser) { Rediss::TypeParser.new(read_connection) }
+  let(:parser) { Rediss::TypeParser.new(default_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -32,25 +27,28 @@ RSpec.describe String do
 
   describe ".from_resp3" do
     it "deserializes blob strings" do
-      write_connection.write("11\r\nhello world\r\n")
+      io.write("11\r\nhello world\r\n")
+      io.rewind
 
-      type = described_class.from_resp3("$", read_connection) { parser.read }
+      type = described_class.from_resp3("$", default_connection) { parser.read }
 
       expect(type).to eq "hello world"
     end
 
     it "deserializes simple strings" do
-      write_connection.write("hello world\r\n")
+      io.write("hello world\r\n")
+      io.rewind
 
-      type = described_class.from_resp3("+", read_connection) { parser.read }
+      type = described_class.from_resp3("+", default_connection) { parser.read }
 
       expect(type).to eq "hello world"
     end
 
     it "deserializes verbatim strings" do
-      write_connection.write("15\r\ntxt:hello world\r\n")
+      io.write("15\r\ntxt:hello world\r\n")
+      io.rewind
 
-      type = described_class.from_resp3("=", read_connection) { parser.read }
+      type = described_class.from_resp3("=", default_connection) { parser.read }
 
       expect(type).to eq "hello world"
     end

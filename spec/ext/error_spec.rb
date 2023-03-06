@@ -6,12 +6,7 @@ RSpec.describe Error do
   let(:code) { "ERR" }
   let(:value) { "hello world" }
 
-  let(:pipes) { IO.pipe }
-
-  let(:read_connection) { Rediss::Connection.new(pipes.first) }
-  let(:write_connection) { pipes.last }
-
-  let(:parser) { Rediss::TypeParser.new(read_connection) }
+  let(:parser) { Rediss::TypeParser.new(default_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -33,27 +28,30 @@ RSpec.describe Error do
 
   describe ".from_resp3" do
     it "deserializes blob errors" do
-      write_connection.write("15\r\nERR hello world\r\n")
+      io.write("15\r\nERR hello world\r\n")
+      io.rewind
 
-      type = described_class.from_resp3("!", read_connection) { parser.read }
+      type = described_class.from_resp3("!", default_connection) { parser.read }
 
       expect(type.code).to eq "ERR"
       expect(type.message).to eq "hello world"
     end
 
     it "deserializes simple strings" do
-      write_connection.write("ERR hello world\r\n")
+      io.write("ERR hello world\r\n")
+      io.rewind
 
-      type = described_class.from_resp3("-", read_connection) { parser.read }
+      type = described_class.from_resp3("-", default_connection) { parser.read }
 
       expect(type.code).to eq "ERR"
       expect(type.message).to eq "hello world"
     end
 
     it "deserializes blob strings" do
-      write_connection.write("21\r\nSYNTAX invalid syntax\r\n")
+      io.write("21\r\nSYNTAX invalid syntax\r\n")
+      io.rewind
 
-      type = described_class.from_resp3("!", read_connection) { parser.read }
+      type = described_class.from_resp3("!", default_connection) { parser.read }
 
       expect(type.code).to eq "SYNTAX"
       expect(type.message).to eq "invalid syntax"

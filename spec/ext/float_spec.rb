@@ -5,12 +5,7 @@ RSpec.describe Float do
 
   let(:value) { 1.23 }
 
-  let(:pipes) { IO.pipe }
-
-  let(:read_connection) { Rediss::Connection.new(pipes.first) }
-  let(:write_connection) { pipes.last }
-
-  let(:parser) { Rediss::TypeParser.new(read_connection) }
+  let(:parser) { Rediss::TypeParser.new(default_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -56,18 +51,20 @@ RSpec.describe Float do
 
   describe ".from_resp3" do
     it "deserializes the type" do
-      write_connection.write("1.23\r\n")
+      io.write("1.23\r\n")
+      io.rewind
 
-      type = described_class.from_resp3(",", read_connection) { parser.read }
+      type = described_class.from_resp3(",", default_connection) { parser.read }
 
       expect(type).to eq 1.23
     end
 
     context "when the value is not a number" do
       it "deserializes the type" do
-        write_connection.write("nan\r\n")
+        io.write("nan\r\n")
+        io.rewind
 
-        type = described_class.from_resp3(",", read_connection) { parser.read }
+        type = described_class.from_resp3(",", default_connection) { parser.read }
 
         expect(type).to be_nan
       end
@@ -75,9 +72,10 @@ RSpec.describe Float do
 
     context "when the value is infinity" do
       it "deserializes the type" do
-        write_connection.write("inf\r\n")
+        io.write("inf\r\n")
+        io.rewind
 
-        type = described_class.from_resp3(",", read_connection) { parser.read }
+        type = described_class.from_resp3(",", default_connection) { parser.read }
 
         expect(type).to be_infinite
       end
@@ -85,9 +83,10 @@ RSpec.describe Float do
 
     context "when the value is negative infinity" do
       it "deserializes the type" do
-        write_connection.write("-inf\r\n")
+        io.write("-inf\r\n")
+        io.rewind
 
-        type = described_class.from_resp3(",", read_connection) { parser.read }
+        type = described_class.from_resp3(",", default_connection) { parser.read }
 
         expect(type).to be_infinite
       end
