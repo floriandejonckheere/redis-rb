@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Rediss::Command do
-  subject(:command) { command_class.new(arguments) }
+  subject(:command) { command_class.new(arguments, default_connection) }
 
   let(:command_class) do
     Class.new(described_class) do

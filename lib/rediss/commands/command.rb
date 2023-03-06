@@ -16,7 +16,7 @@ module Rediss
       }
 
       def execute
-        return Info.new([]).execute if arguments.empty?
+        return Info.new([], connection).execute if arguments.empty?
 
         subcommand = arguments
           .shift
@@ -38,7 +38,7 @@ module Rediss
 
         # Instantiate, validate, and execute subcommand class
         klass
-          .new(arguments)
+          .new(arguments, connection)
           .tap(&:validate)
           .execute
       end

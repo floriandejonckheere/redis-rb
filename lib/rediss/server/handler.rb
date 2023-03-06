@@ -30,7 +30,7 @@ module Rediss
 
           # Parse command
           command = CommandParser
-            .new(type)
+            .new(type, connection)
             .read
 
           # Validate and execute command

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Rediss::Commands::Command do
-  subject(:command) { described_class.new(arguments) }
+  subject(:command) { described_class.new(arguments, default_connection) }
 
   let(:arguments) { ["count"] }
 
@@ -22,7 +22,7 @@ RSpec.describe Rediss::Commands::Command do
 
       expect(Rediss::Commands::Command::Count)
         .to have_received(:new)
-        .with([])
+        .with([], default_connection)
     end
 
     context "when no arguments are passed" do
@@ -37,7 +37,7 @@ RSpec.describe Rediss::Commands::Command do
 
         expect(Rediss::Commands::Command::Info)
           .to have_received(:new)
-          .with([])
+          .with([], default_connection)
       end
     end
 

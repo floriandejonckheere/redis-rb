@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Rediss::Commands::Ping do
-  subject(:command) { described_class.new(arguments) }
+  subject(:command) { described_class.new(arguments, default_connection) }
 
   let(:arguments) { ["hello world"] }
 

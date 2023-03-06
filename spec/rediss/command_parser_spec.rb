@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Rediss::CommandParser do
-  subject(:parser) { described_class.new(arguments) }
+  subject(:parser) { described_class.new(arguments, default_connection) }
 
   describe "#read" do
     context "when the command is known" do

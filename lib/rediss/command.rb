@@ -20,9 +20,13 @@ module Rediss
     sig { returns(T::Array[Rediss::Type]) }
     attr_reader :arguments
 
-    sig { params(arguments: Rediss::Type).void }
-    def initialize(arguments)
+    sig { returns(Connection) }
+    attr_reader :connection
+
+    sig { params(arguments: Rediss::Type, connection: Connection).void }
+    def initialize(arguments, connection)
       @arguments = Array(arguments)
+      @connection = connection
     end
 
     sig { abstract.returns(Rediss::Type) }
