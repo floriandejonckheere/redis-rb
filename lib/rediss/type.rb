@@ -3,6 +3,7 @@
 
 module Rediss
   module Type
+    include Kernel
     extend T::Sig
     extend T::Helpers
 
