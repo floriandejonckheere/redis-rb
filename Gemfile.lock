@@ -30,6 +30,7 @@ GEM
     attr_extras (7.1.0)
     childprocess (4.1.0)
     climate_control (1.2.0)
+    colorize (0.8.1)
     concurrent-ruby (1.2.0)
     connection_pool (2.3.0)
     console (1.16.2)
@@ -169,6 +170,7 @@ PLATFORMS
 DEPENDENCIES
   async-io!
   climate_control
+  colorize
   connection_pool
   debug
   factory_bot

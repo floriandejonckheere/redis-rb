@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # typed: true
 
+require "reline"
+
 module Rediss
   class Client
     class Handler

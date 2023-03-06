@@ -11,11 +11,17 @@ gemspec
 gem "async-io", github: "floriandejonckheere/async-io"
 
 group :development do
+  # Colorize terminal output
+  gem "colorize"
+
   # Debugger
   gem "debug"
 
   # Task runner
   gem "rake"
+
+  # Display rich diffs in RSpec
+  gem "super_diff"
 
   # Git hooks
   gem "overcommit"
@@ -55,9 +61,6 @@ group :test do
 
   # Code coverage
   gem "simplecov"
-
-  # Display rich diffs in RSpec
-  gem "super_diff"
 
   # Change time at runtime
   gem "timecop"

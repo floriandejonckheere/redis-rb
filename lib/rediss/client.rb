@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 # typed: true
 
-require "reline"
-
 module Rediss
   class Client < Application
     argument "-h", "--host HOST", "Host to connect to"
