@@ -6,22 +6,22 @@ module Rediss
     class Handler
       extend T::Sig
 
-      sig { returns(Socket) }
-      attr_reader :socket
+      sig { returns(Connection) }
+      attr_reader :connection
 
-      sig { params(socket: Socket).void }
-      def initialize(socket)
-        @socket = socket
+      sig { params(connection: Connection).void }
+      def initialize(connection)
+        @connection = connection
       end
 
       sig { void }
       def start
-        info "Client #{address} connected"
+        info "Client #{connection.address} connected"
 
         loop do
           # Read client request
           type = TypeParser
-            .new(socket)
+            .new(connection)
             .read
 
           debug "Read #{type.to_resp3.inspect}"
@@ -41,23 +41,16 @@ module Rediss
           debug "Write #{result.to_resp3.inspect}"
 
           # Send response to client
-          socket.write(result.to_resp3)
+          connection.write(result.to_resp3)
         rescue ArgumentError => e
           error = Error.new("ERR", e.message)
 
           debug "Write #{error.to_resp3.inspect}"
 
-          socket.write(error.to_resp3)
+          connection.write(error.to_resp3)
         end
       ensure
-        info "Client #{address} disconnected"
-      end
-
-      private
-
-      sig { returns(String) }
-      def address
-        @address ||= "#{socket.peeraddr[3]}:#{socket.peeraddr[1]}"
+        info "Client #{connection.address} disconnected"
       end
     end
   end

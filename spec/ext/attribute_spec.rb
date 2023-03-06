@@ -7,10 +7,10 @@ RSpec.describe Attribute do
 
   let(:pipes) { IO.pipe }
 
-  let(:rsocket) { Rediss::Socket.new(pipes.first) }
-  let(:wsocket) { pipes.last }
+  let(:read_connection) { Rediss::Connection.new(pipes.first) }
+  let(:write_connection) { pipes.last }
 
-  let(:parser) { Rediss::TypeParser.new(rsocket) }
+  let(:parser) { Rediss::TypeParser.new(read_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -20,9 +20,9 @@ RSpec.describe Attribute do
 
   describe ".from_resp3" do
     it "deserializes the type" do
-      wsocket.write("2\r\n$5\r\nhello\r\n$5\r\nworld\r\n")
+      write_connection.write("2\r\n$5\r\nhello\r\n$5\r\nworld\r\n")
 
-      type = described_class.from_resp3("|", rsocket) { parser.read }
+      type = described_class.from_resp3("|", read_connection) { parser.read }
 
       expect(type).to eq(described_class[{ "hello" => "world" }])
     end

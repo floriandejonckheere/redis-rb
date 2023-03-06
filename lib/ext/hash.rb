@@ -23,10 +23,10 @@ class Hash
     deep_flatten.to_pretty_s(indent:)
   end
 
-  sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
-  def self.from_resp3(type, socket, &block)
+  sig { override.params(type: String, connection: Rediss::Connection, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
+  def self.from_resp3(type, connection, &block)
     # Read number of elements in hash
-    count = socket.gets.chomp.to_i
+    count = connection.gets.chomp.to_i
 
     # Read elements
     elements = count.times.map(&block)

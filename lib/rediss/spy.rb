@@ -17,16 +17,16 @@ module Rediss
     def start
       Async do
         # Wrap sockets
-        sockets = [
-          Socket.new(redis_socket),
-          Socket.new(rediss_socket),
+        connections = [
+          Connection.new(redis_socket),
+          Connection.new(rediss_socket),
         ]
 
         Client::MultiHandler
-          .new(sockets)
+          .new(connections)
           .start
       ensure
-        sockets&.each(&:close)
+        connections&.each(&:close)
       end
     rescue Interrupt
       info "Shutting down client"

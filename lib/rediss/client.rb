@@ -13,13 +13,13 @@ module Rediss
     def start
       Async do
         # Wrap socket
-        socket = Socket.new(self.socket)
+        connection = Connection.new(socket)
 
         Handler
-          .new(socket)
+          .new(connection)
           .start
       ensure
-        socket&.close
+        connection&.close
       end
     rescue Interrupt
       info "Shutting down client"

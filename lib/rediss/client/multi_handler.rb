@@ -11,17 +11,17 @@ module Rediss
     class MultiHandler
       extend T::Sig
 
-      sig { returns(T::Hash[String, Socket]) }
-      attr_reader :sockets
+      sig { returns(T::Hash[String, Connection]) }
+      attr_reader :connections
 
-      sig { params(sockets: T::Array[Socket]).void }
-      def initialize(sockets)
-        @sockets = sockets.index_by { |s| "#{s.peeraddr[3]}:#{s.peeraddr[1]}" }
+      sig { params(connections: T::Array[Connection]).void }
+      def initialize(connections)
+        @connections = connections.index_by(&:address)
       end
 
       sig { void }
       def start
-        info "Connecting to #{sockets.keys.join(', ')}"
+        info "Connecting to #{connections.keys.join(', ')}"
 
         loop do
           # Read user input
@@ -36,13 +36,13 @@ module Rediss
 
           debug "Write #{request.to_resp3.inspect}"
 
-          types = sockets.filter_map do |address, socket|
+          types = connections.filter_map do |address, connection|
             # Send command to server
-            socket.write(request.to_resp3)
+            connection.write(request.to_resp3)
 
             # Read server response
             type = TypeParser
-              .new(socket)
+              .new(connection)
               .read
 
             debug "Read #{type.to_resp3.inspect} < #{address}"

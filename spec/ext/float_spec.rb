@@ -7,10 +7,10 @@ RSpec.describe Float do
 
   let(:pipes) { IO.pipe }
 
-  let(:rsocket) { Rediss::Socket.new(pipes.first) }
-  let(:wsocket) { pipes.last }
+  let(:read_connection) { Rediss::Connection.new(pipes.first) }
+  let(:write_connection) { pipes.last }
 
-  let(:parser) { Rediss::TypeParser.new(rsocket) }
+  let(:parser) { Rediss::TypeParser.new(read_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -56,18 +56,18 @@ RSpec.describe Float do
 
   describe ".from_resp3" do
     it "deserializes the type" do
-      wsocket.write("1.23\r\n")
+      write_connection.write("1.23\r\n")
 
-      type = described_class.from_resp3(",", rsocket) { parser.read }
+      type = described_class.from_resp3(",", read_connection) { parser.read }
 
       expect(type).to eq 1.23
     end
 
     context "when the value is not a number" do
       it "deserializes the type" do
-        wsocket.write("nan\r\n")
+        write_connection.write("nan\r\n")
 
-        type = described_class.from_resp3(",", rsocket) { parser.read }
+        type = described_class.from_resp3(",", read_connection) { parser.read }
 
         expect(type).to be_nan
       end
@@ -75,9 +75,9 @@ RSpec.describe Float do
 
     context "when the value is infinity" do
       it "deserializes the type" do
-        wsocket.write("inf\r\n")
+        write_connection.write("inf\r\n")
 
-        type = described_class.from_resp3(",", rsocket) { parser.read }
+        type = described_class.from_resp3(",", read_connection) { parser.read }
 
         expect(type).to be_infinite
       end
@@ -85,9 +85,9 @@ RSpec.describe Float do
 
     context "when the value is negative infinity" do
       it "deserializes the type" do
-        wsocket.write("-inf\r\n")
+        write_connection.write("-inf\r\n")
 
-        type = described_class.from_resp3(",", rsocket) { parser.read }
+        type = described_class.from_resp3(",", read_connection) { parser.read }
 
         expect(type).to be_infinite
       end

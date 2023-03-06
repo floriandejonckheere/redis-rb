@@ -18,8 +18,8 @@ class Symbol
     to_s.inspect
   end
 
-  sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
-  def self.from_resp3(type, socket, &block)
+  sig { override.params(type: String, connection: Rediss::Connection, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
+  def self.from_resp3(type, connection, &block)
     raise ArgumentError, "cannot deserialize symbols"
   end
 end

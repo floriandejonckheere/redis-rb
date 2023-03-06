@@ -25,23 +25,23 @@ module Rediss
       "|" => Attribute,
     }.freeze, T::Hash[String, T.untyped],)
 
-    sig { returns(Socket) }
-    attr_reader :socket
+    sig { returns(Connection) }
+    attr_reader :connection
 
-    sig { params(socket: Socket).void }
-    def initialize(socket)
-      @socket = socket
+    sig { params(connection: Connection).void }
+    def initialize(connection)
+      @connection = connection
     end
 
     sig { returns(Rediss::Type) }
     def read
-      type = socket.read(1)
+      type = connection.read(1)
 
       return unless type
 
       TYPES
         .fetch(type)
-        .from_resp3(type, socket) { read }
+        .from_resp3(type, connection) { read }
     rescue KeyError => e
       raise ArgumentError, "unknown type '#{e.key}'"
     end

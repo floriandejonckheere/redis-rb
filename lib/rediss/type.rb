@@ -24,8 +24,8 @@ module Rediss
 
       interface!
 
-      sig { abstract.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.untyped) }
-      def from_resp3(type, socket, &block); end
+      sig { abstract.params(type: String, connection: Rediss::Connection, block: T.proc.returns(Rediss::Type)).returns(T.untyped) }
+      def from_resp3(type, connection, &block); end
     end
 
     mixes_in_class_methods ClassMethods

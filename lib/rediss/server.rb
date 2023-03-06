@@ -21,13 +21,13 @@ module Rediss
 
           Async do
             # Wrap socket
-            socket = Socket.new(socket)
+            connection = Connection.new(socket)
 
             Handler
-              .new(socket)
+              .new(connection)
               .start
           ensure
-            socket.close
+            connection&.close
           end
         end
       end

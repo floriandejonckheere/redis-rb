@@ -19,10 +19,10 @@ class NilClass
   end
 
   # Returns untyped because Sorbet is giving a cryptic error when trying to use `T.attached_class`
-  sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.untyped) }
-  def self.from_resp3(type, socket, &block)
+  sig { override.params(type: String, connection: Rediss::Connection, block: T.proc.returns(Rediss::Type)).returns(T.untyped) }
+  def self.from_resp3(type, connection, &block)
     # Read until end of line
-    socket.gets
+    connection.gets
 
     # Return nil
     nil

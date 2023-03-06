@@ -7,10 +7,10 @@ RSpec.describe NilClass do
 
   let(:pipes) { IO.pipe }
 
-  let(:rsocket) { Rediss::Socket.new(pipes.first) }
-  let(:wsocket) { pipes.last }
+  let(:read_connection) { Rediss::Connection.new(pipes.first) }
+  let(:write_connection) { pipes.last }
 
-  let(:parser) { Rediss::TypeParser.new(rsocket) }
+  let(:parser) { Rediss::TypeParser.new(read_connection) }
 
   describe "#to_resp3" do
     it "serializes the type" do
@@ -32,9 +32,9 @@ RSpec.describe NilClass do
 
   describe ".from_resp3" do
     it "deserializes the type" do
-      wsocket.write("\r\n")
+      write_connection.write("\r\n")
 
-      type = described_class.from_resp3("_", rsocket) { parser.read }
+      type = described_class.from_resp3("_", read_connection) { parser.read }
 
       expect(type).to be_nil
     end

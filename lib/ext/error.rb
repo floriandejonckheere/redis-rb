@@ -30,18 +30,18 @@ class Error
     "#{code} #{message}"
   end
 
-  sig { override.params(type: String, socket: Rediss::Socket, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
-  def self.from_resp3(type, socket, &block)
+  sig { override.params(type: String, connection: Rediss::Connection, block: T.proc.returns(Rediss::Type)).returns(T.attached_class) }
+  def self.from_resp3(type, connection, &block)
     case type
     when "!"
       # Read number of characters in blob error
-      count = socket.gets.chomp.to_i
+      count = connection.gets.chomp.to_i
 
       # Read error characters
-      code, *message = socket.read(count + 2).chomp.split
+      code, *message = connection.read(count + 2).chomp.split
     when "-"
       # Read error characters
-      code, *message = socket.gets.chomp.split
+      code, *message = connection.gets.chomp.split
     else
       raise ArgumentError, "unknown type '#{type}'"
     end

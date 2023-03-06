@@ -8,22 +8,22 @@ module Rediss
     class Handler
       extend T::Sig
 
-      sig { returns(Socket) }
-      attr_reader :socket
+      sig { returns(Connection) }
+      attr_reader :connection
 
-      sig { params(socket: Socket).void }
-      def initialize(socket)
-        @socket = socket
+      sig { params(connection: Connection).void }
+      def initialize(connection)
+        @connection = connection
       end
 
       sig { void }
       def start
-        info "Connecting to #{address}"
+        info "Connecting to #{connection.address}"
 
         loop do
           # Read user input
           request = Reline
-            .readline("#{address}> ", true)
+            .readline("#{connection.address}> ", true)
 
           break unless request
 
@@ -34,11 +34,11 @@ module Rediss
           debug "Write #{request.to_resp3.inspect}"
 
           # Send command to server
-          socket.write(request.to_resp3)
+          connection.write(request.to_resp3)
 
           # Read server response
           type = TypeParser
-            .new(socket)
+            .new(connection)
             .read
 
           debug "Read #{type.to_resp3.inspect}"
@@ -47,13 +47,6 @@ module Rediss
 
           puts type.to_pretty_s
         end
-      end
-
-      private
-
-      sig { returns(String) }
-      def address
-        @address ||= "#{socket.peeraddr[3]}:#{socket.peeraddr[1]}"
       end
     end
   end
