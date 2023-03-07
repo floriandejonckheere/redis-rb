@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Add `COMMAND INFO` command (ACL categories, tips, key specifications and subcommands are not yet supported)
 - Add `COMMAND HELP` command
 - Support no arguments for `COMMAND` command
+- Add `SELECT` command
 
 ## [v0.1.0] - 2023-02-26
 
