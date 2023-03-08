@@ -13,8 +13,7 @@ RSpec.describe Rediss::Commands::Hello do
       expect(command.execute.keys).to eq expected.keys
     end
 
-    it "returns a map" do
-      expect(command.execute).to be_a Hash
+    it "returns the current server and connection properties" do
       expect(command.execute).to eq(
         "server" => "rediss",
         "version" => Rediss::VERSION,
@@ -29,8 +28,7 @@ RSpec.describe Rediss::Commands::Hello do
     context "when no arguments are passed" do
       let(:arguments) { [] }
 
-      it "returns a map" do
-        expect(command.execute).to be_a Hash
+      it "returns the current server and connection properties" do
         expect(command.execute).to eq(
           "server" => "rediss",
           "version" => Rediss::VERSION,
@@ -43,20 +41,8 @@ RSpec.describe Rediss::Commands::Hello do
       end
     end
 
-    context "when more than one argument is passed" do
-      let(:arguments) { [3, "AUTH"] }
-
-      it "returns an error" do
-        error = command.execute
-
-        expect(error).to be_an Error
-        expect(error.code).to eq "AUTH"
-        expect(error.message).to eq "not implemented yet"
-      end
-    end
-
     context "when an invalid protocol version is passed" do
-      let(:arguments) { [2] }
+      let(:arguments) { ["2"] }
 
       it "returns an error" do
         error = command.execute
@@ -64,6 +50,38 @@ RSpec.describe Rediss::Commands::Hello do
         expect(error).to be_an Error
         expect(error.code).to eq "NOPROTO"
         expect(error.message).to eq "unsupported protocol version"
+      end
+    end
+
+    describe "AUTH option" do
+      let(:default_options) { { username: "foo", password: "bar" } }
+
+      context "when the password is correct" do
+        let(:arguments) { ["3", "AUTH", "foo", "bar"] }
+
+        it "returns the current server and connection properties" do
+          expect(command.execute).to eq(
+            "server" => "rediss",
+            "version" => Rediss::VERSION,
+            "proto" => Rediss::PROTOCOL,
+            "id" => 1,
+            "mode" => "standalone",
+            "role" => "master",
+            "modules" => [],
+          )
+        end
+      end
+
+      context "when the password is incorrect" do
+        let(:arguments) { ["3", "AUTH", "foo", "baz"] }
+
+        it "returns an error" do
+          error = command.execute
+
+          expect(error).to be_an Error
+          expect(error.code).to eq "WRONGPASS"
+          expect(error.message).to eq "invalid username-password pair"
+        end
       end
     end
   end

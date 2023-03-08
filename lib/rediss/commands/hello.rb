@@ -29,8 +29,23 @@ module Rediss
       }
 
       def execute
-        return Error.new("AUTH", "not implemented yet") if arguments.count > 1
         return Error.new("NOPROTO", "unsupported protocol version") unless version == 3
+
+        if arguments.any?
+          token = arguments.shift&.to_s&.upcase
+
+          case token
+          when "AUTH"
+            username = arguments.shift
+            password = arguments.shift
+          when "SETNAME"
+            return Error.new("ERR", "not implemented yet")
+          else
+            return Error.new("ERR", "invalid token")
+          end
+
+          return Error.new("WRONGPASS", "invalid username-password pair") unless connection.authenticate(username, password)
+        end
 
         {
           "server" => "rediss",
@@ -46,7 +61,7 @@ module Rediss
       private
 
       def version
-        arguments.first&.to_s&.to_i || Rediss::PROTOCOL
+        @version ||= arguments.shift&.to_s&.to_i || Rediss::PROTOCOL
       end
     end
   end

@@ -7,9 +7,13 @@ module Rediss
   class Server < Application
     argument "-h", "--host HOST", "Host to bind to"
     argument "-p", "--port PORT", Integer, "Port to bind to"
+    argument "-u", "--user USER", "User to use for authentication"
+    argument "-p", "--password PASSWORD", "Password to use for authentication"
 
     defaults host: "127.0.0.1",
-             port: 6378
+             port: 6378,
+             user: nil,
+             password: nil
 
     sig { void }
     def start
