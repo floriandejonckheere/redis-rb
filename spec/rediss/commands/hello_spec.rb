@@ -84,5 +84,17 @@ RSpec.describe Rediss::Commands::Hello do
         end
       end
     end
+
+    describe "SETNAME option" do
+      let(:arguments) { ["3", "SETNAME", "foo"] }
+
+      it "sets the client name" do
+        expect { command.execute }.to change(default_connection, :name).to("foo")
+      end
+
+      it "returns OK" do
+        expect(command.execute).to eq "OK"
+      end
+    end
   end
 end

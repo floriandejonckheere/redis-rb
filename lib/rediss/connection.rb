@@ -20,6 +20,9 @@ module Rediss
     sig { returns(Database) }
     attr_reader :database
 
+    sig { returns(T.nilable(String)) }
+    attr_accessor :name
+
     sig { params(io: ConnectionType, options: T::Hash[Symbol, T.untyped], database: Database).void }
     def initialize(io, options = {}, database = Database[0])
       @io = io

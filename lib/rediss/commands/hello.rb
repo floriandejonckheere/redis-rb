@@ -39,7 +39,9 @@ module Rediss
             username = arguments.shift
             password = arguments.shift
           when "SETNAME"
-            return Error.new("ERR", "not implemented yet")
+            connection.name = arguments.shift
+
+            return "OK"
           else
             return Error.new("ERR", "invalid token")
           end
