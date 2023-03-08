@@ -18,8 +18,8 @@ module Rediss
       Async do
         # Wrap sockets
         connections = [
-          Connection.new(redis_socket),
-          Connection.new(rediss_socket),
+          Connection.new(redis_socket, options),
+          Connection.new(rediss_socket, options),
         ]
 
         Client::MultiHandler

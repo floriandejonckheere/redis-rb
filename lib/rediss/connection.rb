@@ -14,12 +14,16 @@ module Rediss
     sig { returns(ConnectionType) }
     attr_reader :io
 
+    sig { returns(T::Hash[Symbol, T.untyped]) }
+    attr_reader :options
+
     sig { returns(Database) }
     attr_reader :database
 
     sig { params(io: ConnectionType, database: Database).void }
-    def initialize(io, database = Database[0])
+    def initialize(io, options = {}, database = Database[0])
       @io = io
+      @options = options
       @database = database
     end
 

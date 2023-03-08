@@ -21,7 +21,7 @@ module Rediss
 
           Async do
             # Wrap socket
-            connection = Connection.new(socket)
+            connection = Connection.new(socket, options)
 
             Handler
               .new(connection)
