@@ -20,11 +20,17 @@ module Rediss
     sig { returns(Database) }
     attr_reader :database
 
-    sig { params(io: ConnectionType, database: Database).void }
+    sig { params(io: ConnectionType, options: T::Hash[Symbol, T.untyped], database: Database).void }
     def initialize(io, options = {}, database = Database[0])
       @io = io
       @options = options
       @database = database
+    end
+
+    def authenticate(username, password)
+      return true unless options[:username] && options[:password]
+
+      options[:username] == username && options[:password] == password
     end
 
     def select(index)
