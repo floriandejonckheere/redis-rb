@@ -126,9 +126,9 @@ RSpec.configure do |config|
   end
 
   # Spawn Rediss server for integration tests
-  config.around(:all, integration: true) do |example|
+  config.before(:all, integration: true) do
     # Start Rediss server
-    pid = Process.spawn("bin/rediss-server --host 127.0.0.1 --port 6378 --log-level fatal")
+    $pid = Process.spawn("bin/rediss-server --host 127.0.0.1 --port 6378 --log-level fatal")
 
     # Rediss connection pool
     $rediss = ConnectionPool.new(size: 5, timeout: 5) { Redis.new(url: "redis://localhost:6378/0") }
@@ -143,9 +143,9 @@ RSpec.configure do |config|
 
       retry
     end
+  end
 
-    example.run
-  ensure
-    Process.kill("TERM", pid)
+  config.after(:all, integration: true) do
+    Process.kill("TERM", $pid)
   end
 end
