@@ -27,6 +27,7 @@ module Rediss
 
           break unless request
 
+          # TODO: Parse quotes as multi-word strings
           # Split up request into command and arguments
           request = request
             .split
@@ -42,8 +43,6 @@ module Rediss
             .read
 
           debug "Read #{type.to_resp3.inspect}"
-
-          break unless type
 
           puts type.to_pretty_s
         end
