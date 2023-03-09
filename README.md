@@ -7,22 +7,33 @@ Unofficial RESP3-compliant Redis server implementation written in pure Ruby.
 
 ## Installation
 
-Install the gem using your operating system's package manager, or using RubyGems:
+Clone the repository and install the dependencies:
 
 ```sh
-gem install rediss
+git clone git@github.com:floriandejonckheere/redis-rb.git
+cd redis-rb
+gem install bundler
+bundle install
 ```
 
 ## Usage
 
-Execute `rediss-server --help` to see all available commands and their arguments.
+### Server
+
+Execute `bin/rediss-server --help` to see all available commands and their arguments.
+
+### Client
+
+Execute `bin/rediss-client --help` to see all available commands and their arguments.
 
 ## Commands
 
 Currently, the following commands are supported:
 
+**Connection**:
 - `HELLO`
 - `PING`
+- `SELECT`
 
 ## Release
 
