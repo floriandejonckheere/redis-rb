@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 - Add `COMMAND INFO` command (ACL categories, tips, key specifications and subcommands are not yet supported)
 - Add `COMMAND HELP` command
 - Add `SELECT` command
+- Add `GET` command
+- Add `SET` command
 - Support no arguments for `COMMAND` command
 - Support `AUTH` and `SETNAME` argument for `HELLO` command
 

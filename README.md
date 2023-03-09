@@ -35,6 +35,10 @@ Currently, the following commands are supported:
 - `PING`
 - `SELECT`
 
+**String**:
+- `GET`
+- `SET`
+
 ## Release
 
 Update the changelog and bump the version in `lib/rediss/version.rb`.

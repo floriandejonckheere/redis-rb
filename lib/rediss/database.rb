@@ -8,9 +8,18 @@ module Rediss
     sig { returns(Integer) }
     attr_reader :index
 
+    sig { returns(T::Hash[String, Entry]) }
+    attr_reader :entries
+
     sig { params(index: Integer).void }
     def initialize(index)
       @index = index
+      @entries = Hash.new { |hash, key| hash[key] = Entry.new }
+    end
+
+    sig { params(key: String).returns(Entry) }
+    def get(key)
+      T.cast(entries[key], Rediss::Entry)
     end
 
     sig { returns(T::Hash[Integer, Database]) }
