@@ -9,7 +9,7 @@ module Rediss
 
         self.metadata = {
           summary: "Get total number of Redis commands",
-          since: "2.8.13",
+          since: "1.0.0",
           group: "server",
           complexity: "O(1)",
         }

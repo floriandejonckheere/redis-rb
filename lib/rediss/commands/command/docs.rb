@@ -9,7 +9,7 @@ module Rediss
 
         self.metadata = {
           summary: "Get array of specific Redis command documentation",
-          since: "7.0.0",
+          since: "1.0.0",
           group: "server",
           complexity: "O(N) where N is the number of commands to look up",
           arguments: [

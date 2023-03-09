@@ -9,7 +9,7 @@ module Rediss
 
         self.metadata = {
           summary: "Extract keys given a full Redis command",
-          since: "2.8.13",
+          since: nil,
           group: "server",
           complexity: "O(N) where N is the number of arguments to the command",
         }

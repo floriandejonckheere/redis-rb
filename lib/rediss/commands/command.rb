@@ -10,7 +10,7 @@ module Rediss
       self.flags = [:loading, :stale]
       self.metadata = {
         summary: "Get array of Redis command details",
-        since: "2.8.13",
+        since: "1.0.0",
         group: "server",
         complexity: "O(N) where N is the total number of Redis commands",
       }

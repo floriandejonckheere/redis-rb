@@ -9,12 +9,9 @@ module Rediss
 
         self.metadata = {
           summary: "Get array of specific Redis command details, or all when no argument is given.",
-          since: "2.8.13",
+          since: "1.0.0",
           group: "server",
           complexity: "O(N) where N is the number of commands to look up",
-          history: [
-            ["7.0.0", "Allowed to be called with no argument to get info on all commands."],
-          ],
           arguments: [
             { name: "command-name", type: "string", flags: ["optional", "multiple"] },
           ],

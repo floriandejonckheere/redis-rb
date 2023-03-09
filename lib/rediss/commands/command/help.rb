@@ -9,7 +9,7 @@ module Rediss
 
         self.metadata = {
           summary: "Show helpful text about the different subcommands",
-          since: "5.0.0",
+          since: "1.0.0",
           group: "server",
           complexity: "O(1)",
         }
