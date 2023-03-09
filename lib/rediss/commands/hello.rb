@@ -39,7 +39,7 @@ module Rediss
             username = arguments.shift
             password = arguments.shift
           when "SETNAME"
-            connection.name = arguments.shift
+            connection.name = arguments.shift&.to_s
 
             return "OK"
           else
