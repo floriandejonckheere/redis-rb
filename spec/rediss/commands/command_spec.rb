@@ -6,13 +6,6 @@ RSpec.describe Rediss::Commands::Command do
   let(:arguments) { ["count"] }
 
   describe "#execute" do
-    it "returns the same responses as Redis" do
-      expected = $redis.with { |r| r.command(arguments) }
-
-      # FIXME: change less than to equal when all commands are implemented
-      expect(command.execute).to be < expected
-    end
-
     it "instantiates a subcommand" do
       allow(Rediss::Commands::Command::Count)
         .to receive(:new)

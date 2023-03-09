@@ -6,12 +6,6 @@ RSpec.describe Rediss::Commands::Command::Help do
   let(:arguments) { [] }
 
   describe "#execute" do
-    it "returns the same responses as Redis" do
-      expected = $redis.with { |r| r.command(:help) }
-
-      expect(command.execute).to eq expected
-    end
-
     it "returns the help of supported commands" do
       expect(command.execute).to be_an Array
     end

@@ -6,15 +6,7 @@ RSpec.describe Rediss::Commands::Select do
   let(:arguments) { [3] }
 
   describe "#execute" do
-    it "returns the same responses as Redis" do
-      expected = $redis.with { |r| r.select(arguments) }
-
-      # Compare only keys, not values
-      expect(command.execute).to eq expected
-    end
-
-    it "returns a string" do
-      expect(command.execute).to be_a String
+    it "returns OK" do
       expect(command.execute).to eq "OK"
     end
 

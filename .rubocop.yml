@@ -47,6 +47,9 @@ Performance/MapCompact:
 Performance/TimesMap:
   Enabled: false
 
+RSpec/DescribeClass:
+  Enabled: false
+
 RSpec/ExampleLength:
   Enabled: false
 

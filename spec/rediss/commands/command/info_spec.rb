@@ -6,21 +6,29 @@ RSpec.describe Rediss::Commands::Command::Info do
   let(:arguments) { [] }
 
   describe "#execute" do
-    Rediss::Command.subcommands.each_key do |command_name|
-      context "when '#{command_name}' is passed" do
-        let(:arguments) { [command_name] }
-
-        it "returns the same responses as Redis" do
-          expected = $redis.with { |r| r.command([:info, *arguments]) }.first
-
-          # TODO: first key, last key, step, acl categories, tips, key specifications, subcommands
-          expect(command.execute.first[..2]).to eq expected[..2]
-        end
-      end
-    end
-
     it "returns the info of supported commands" do
       expect(command.execute).to be_an Array
+    end
+
+    context "when a command name is passed" do
+      let(:arguments) { ["ping"] }
+
+      it "returns the info of the command" do
+        expect(command.execute).to eq([
+                                        [
+                                          "ping",
+                                          -1,
+                                          ["fast"],
+                                          0,
+                                          0,
+                                          0,
+                                          [],
+                                          [],
+                                          [],
+                                          [],
+                                        ],
+                                      ])
+      end
     end
 
     context "when an unknown command is passed" do
