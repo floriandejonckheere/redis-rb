@@ -21,6 +21,9 @@ module Rediss
       loader.push_dir(root.join("lib"))
       loader.push_dir(root.join("lib/ext"))
 
+      # Collapse directories
+      loader.collapse(root.join("lib/rediss/concerns"))
+
       # Load extensions
       Dir[root.join("lib/ext/**/*.rb")].each { |file| require file }
 
