@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-require "English"
 require "logger"
-require "optparse"
 
 module Rediss
   class Application
