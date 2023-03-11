@@ -15,7 +15,7 @@ module Rediss
              user: nil,
              password: nil
 
-    sig { void }
+    sig { override.void }
     def start
       info "Starting server on #{options[:host]}:#{options[:port]}"
 

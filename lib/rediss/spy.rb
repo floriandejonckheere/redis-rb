@@ -13,7 +13,7 @@ module Rediss
              rediss_host: "127.0.0.1",
              rediss_port: 6378
 
-    sig { void }
+    sig { override.void }
     def start
       Async do
         # Wrap sockets
