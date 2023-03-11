@@ -53,6 +53,9 @@ RSpec/DescribeClass:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/FilePath:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Max: 5
 
