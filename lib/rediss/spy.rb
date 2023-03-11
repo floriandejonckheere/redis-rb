@@ -3,10 +3,10 @@
 
 module Rediss
   class Spy < Application
-    argument "--redis-host REDIS_HOST", "Host to connect to (Redis)"
-    argument "--redis-port REDIS_PORT", Integer, "Port to connect to (Redis)"
-    argument "--rediss-host REDISS_HOST", "Host to connect to (Rediss)"
-    argument "--rediss-port REDISS_PORT", Integer, "Port to connect to (Rediss)"
+    option "--redis-host REDIS_HOST", "Host to connect to (Redis)"
+    option "--redis-port REDIS_PORT", Integer, "Port to connect to (Redis)"
+    option "--rediss-host REDISS_HOST", "Host to connect to (Rediss)"
+    option "--rediss-port REDISS_PORT", Integer, "Port to connect to (Rediss)"
 
     defaults redis_host: "127.0.0.1",
              redis_port: 6379,

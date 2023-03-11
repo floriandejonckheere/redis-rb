@@ -3,8 +3,8 @@
 
 module Rediss
   class Client < Application
-    argument "-h", "--host HOST", "Host to connect to"
-    argument "-p", "--port PORT", Integer, "Port to connect to"
+    option "-h", "--host HOST", "Host to connect to"
+    option "-p", "--port PORT", Integer, "Port to connect to"
 
     defaults host: "127.0.0.1",
              port: 6378

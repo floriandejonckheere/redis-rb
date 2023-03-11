@@ -5,10 +5,10 @@ require "async/io/tcp_socket"
 
 module Rediss
   class Server < Application
-    argument "-h", "--host HOST", "Host to bind to"
-    argument "-p", "--port PORT", Integer, "Port to bind to"
-    argument "-u", "--user USER", "User to use for authentication"
-    argument "-p", "--password PASSWORD", "Password to use for authentication"
+    option "-h", "--host HOST", "Host to bind to"
+    option "-p", "--port PORT", Integer, "Port to bind to"
+    option "-u", "--user USER", "User to use for authentication"
+    option "-p", "--password PASSWORD", "Password to use for authentication"
 
     defaults host: "127.0.0.1",
              port: 6378,
