@@ -5,7 +5,7 @@ module Rediss
   module Commands
     class Command
       class Info < Command
-        command "INFO"
+        child "INFO"
 
         self.metadata = {
           summary: "Get array of specific Redis command details, or all when no argument is given.",
@@ -19,7 +19,7 @@ module Rediss
 
         def execute
           # Display info on all commands by default
-          @arguments = Rediss::Command.subcommands.keys if arguments.empty?
+          @arguments = Rediss::Command.children.keys if arguments.empty?
 
           arguments.map do |command|
             # Assert command is a string
@@ -31,7 +31,7 @@ module Rediss
 
             # Fetch command class
             klass = Rediss::Command
-              .subcommands
+              .children
               .fetch(name, nil)
 
             # Return nil if command does not exist
@@ -39,7 +39,7 @@ module Rediss
 
             # Return command info
             [
-              klass.command_name.downcase, # name
+              klass.child_name.downcase, # name
               klass.arity, # arity
               klass.flags.map(&:to_s), # flags
               0, # TODO: first key

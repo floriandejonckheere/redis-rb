@@ -4,7 +4,7 @@
 module Rediss
   module Commands
     class Get < Rediss::Command
-      command "GET"
+      child "GET"
 
       self.arity = 2
       self.flags = [:readonly, :fast]

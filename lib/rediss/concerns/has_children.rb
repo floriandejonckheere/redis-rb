@@ -2,7 +2,7 @@
 # typed: true
 
 module Rediss
-  module HasParent
+  module HasChildren
     extend ActiveSupport::Concern
 
     class_methods do
@@ -12,7 +12,7 @@ module Rediss
         @children ||= {}
       end
 
-      def parent(child_name)
+      def child(child_name)
         # Set child name
         self.child_name = child_name
 

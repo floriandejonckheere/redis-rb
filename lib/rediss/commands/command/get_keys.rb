@@ -5,7 +5,7 @@ module Rediss
   module Commands
     class Command
       class GetKeys < Command
-        command "GETKEYS"
+        child "GETKEYS"
 
         self.metadata = {
           summary: "Extract keys given a full Redis command",

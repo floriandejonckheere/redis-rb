@@ -4,7 +4,7 @@
 module Rediss
   module Commands
     class Hello < Rediss::Command
-      command "HELLO"
+      child "HELLO"
 
       self.arity = -1
       self.flags = [:noscript, :loading, :stale, :fast, :no_auth, :allow_busy]

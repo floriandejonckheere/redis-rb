@@ -4,7 +4,7 @@
 module Rediss
   module Commands
     class Command < Rediss::Command
-      command "COMMAND"
+      child "COMMAND"
 
       self.arity = -1
       self.flags = [:loading, :stale]
@@ -31,7 +31,7 @@ module Rediss
         # Infer subcommand class
         klass = self
           .class
-          .subcommands
+          .children
           .fetch(name, nil)
 
         return Error.new("ERR", "unknown subcommand '#{name}'") unless klass

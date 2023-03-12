@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe "COMMAND DOCS", integration: true do
-  Rediss::Command.subcommands.each_key do |command_name|
+  Rediss::Command.children.each_key do |command_name|
     context "when '#{command_name}' is passed" do
       let(:arguments) { [command_name] }
 

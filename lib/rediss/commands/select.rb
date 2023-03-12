@@ -4,7 +4,7 @@
 module Rediss
   module Commands
     class Select < Rediss::Command
-      command "SELECT"
+      child "SELECT"
 
       self.arity = 2
       self.flags = [:loading, :stale, :fast]

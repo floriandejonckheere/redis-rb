@@ -5,7 +5,7 @@ module Rediss
   module Commands
     class Command
       class Docs < Command
-        command "DOCS"
+        child "DOCS"
 
         self.metadata = {
           summary: "Get array of specific Redis command documentation",
@@ -19,7 +19,7 @@ module Rediss
 
         def execute
           # Display info on all commands by default
-          @arguments = Rediss::Command.subcommands.keys if arguments.empty?
+          @arguments = Rediss::Command.children.keys if arguments.empty?
 
           arguments.flat_map do |command|
             # Assert command is a string
@@ -31,7 +31,7 @@ module Rediss
 
             # Fetch command class
             klass = Rediss::Command
-              .subcommands
+              .children
               .fetch(name, nil)
 
             # Return nil if command does not exist
@@ -40,7 +40,7 @@ module Rediss
             # Embed subcommands in metadata
             metadata = klass
               .metadata
-              .merge(subcommands: klass.subcommands.each_value.flat_map { |k| ["#{klass.command_name.downcase}|#{k.command_name.downcase}", k.metadata] }.presence)
+              .merge(subcommands: klass.children.each_value.flat_map { |k| ["#{klass.child_name.downcase}|#{k.child_name.downcase}", k.metadata] }.presence)
               .compact
               .deep_stringify_keys
               .deep_flatten

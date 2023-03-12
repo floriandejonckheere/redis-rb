@@ -5,7 +5,7 @@ module Rediss
   module Commands
     class Command
       class GetKeysAndFlags < Command
-        command "GETKEYSANDFLAGS"
+        child "GETKEYSANDFLAGS"
 
         self.metadata = {
           summary: "Extract keys and access flags given a full Redis command",

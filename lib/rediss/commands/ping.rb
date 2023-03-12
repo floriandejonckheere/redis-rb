@@ -4,7 +4,7 @@
 module Rediss
   module Commands
     class Ping < Rediss::Command
-      command "PING"
+      child "PING"
 
       self.arity = -1
       self.flags = [:fast]

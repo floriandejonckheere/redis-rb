@@ -5,7 +5,7 @@ module Rediss
   module Commands
     class Command
       class List < Command
-        command "LIST"
+        child "LIST"
 
         self.metadata = {
           summary: "Get an array of Redis command names",
@@ -26,9 +26,9 @@ module Rediss
           return Error.new("ERR", "wrong number of arguments for 'COMMAND LIST' command") if arguments.any?
 
           Rediss::Command
-            .subcommands
+            .children
             .values
-            .map(&:command_name)
+            .map(&:child_name)
             .map(&:downcase)
         end
       end

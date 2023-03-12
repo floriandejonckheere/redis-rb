@@ -4,7 +4,7 @@
 module Rediss
   module Commands
     class Set < Rediss::Command
-      command "SET"
+      child "SET"
 
       self.arity = 2
       self.flags = [:write, :denyoom]

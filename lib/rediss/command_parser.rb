@@ -33,7 +33,7 @@ module Rediss
 
       # Fetch command class
       klass = Command
-        .subcommands
+        .children
         .fetch(name, nil)
 
       raise ArgumentError, "unknown command '#{name}'" unless klass

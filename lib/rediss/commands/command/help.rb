@@ -5,7 +5,7 @@ module Rediss
   module Commands
     class Command
       class Help < Command
-        command "HELP"
+        child "HELP"
 
         self.metadata = {
           summary: "Show helpful text about the different subcommands",
