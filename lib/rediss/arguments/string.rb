@@ -4,6 +4,7 @@
 module Rediss
   module Arguments
     class String < Argument
+      child :string
     end
   end
 end

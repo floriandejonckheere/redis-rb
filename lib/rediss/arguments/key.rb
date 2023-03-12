@@ -4,6 +4,8 @@
 module Rediss
   module Arguments
     class Key < Argument
+      child :key
+
       sig { returns(::Integer) }
       attr_reader :key_spec_index
 

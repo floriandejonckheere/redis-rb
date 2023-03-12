@@ -4,11 +4,6 @@ module Rediss
   module HasArguments
     extend ActiveSupport::Concern
 
-    TYPES = {
-      key: Arguments::Key,
-      string: Arguments::String,
-    }.freeze
-
     included do
       class_attribute :argument_definitions,
                       default: []
@@ -26,7 +21,7 @@ module Rediss
       end
 
       def argument(name, type:, flags: [], **kwargs)
-        argument_definitions << TYPES.fetch(type).new(name, flags:, **kwargs)
+        argument_definitions << Argument.children.fetch(type).new(name, flags:, **kwargs)
       end
 
       def parser

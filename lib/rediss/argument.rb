@@ -4,6 +4,7 @@
 module Rediss
   class Argument
     extend T::Sig
+    include HasChildren
 
     sig { returns(::Symbol) }
     attr_reader :name
