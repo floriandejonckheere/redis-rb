@@ -31,13 +31,23 @@ RSpec.describe Rediss::ArgumentsParser do
   end
 
   describe "key arguments" do
-    it "parses arguments"
+    let(:definitions) { [Rediss::Arguments::Key.new(:key, key_spec_index: 0)] }
+
+    it "parses arguments" do
+      expect(parser.parse(["my_key"])).to eq key: "my_key"
+    end
   end
 
   describe "string arguments" do
-    it "parses required arguments"
+    let(:definitions) { [Rediss::Arguments::String.new(:a_string), Rediss::Arguments::String.new(:another_string, flags: [:optional])] }
 
-    it "parses optional arguments"
+    it "parses required arguments" do
+      expect(parser.parse(["my_string"])).to eq a_string: "my_string"
+    end
+
+    it "parses optional arguments" do
+      expect(parser.parse(["my_string", "another_string"])).to include another_string: "another_string"
+    end
   end
 
   describe "integer arguments"
