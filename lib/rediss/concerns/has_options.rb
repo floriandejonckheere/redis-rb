@@ -4,7 +4,7 @@ require "English"
 require "optparse"
 
 module Rediss
-  module Options
+  module HasOptions
     extend ActiveSupport::Concern
 
     included do

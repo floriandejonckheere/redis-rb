@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe Rediss::Options do
+RSpec.describe Rediss::HasOptions do
   subject(:my_instance) { my_class.new(arguments) }
 
   let(:my_class) do
     Class.new do
-      include Rediss::Options
+      include Rediss::HasOptions
 
       option "--[no-]boolean", "Boolean option"
       option "--integer N", Integer, "Integer option"

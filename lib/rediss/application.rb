@@ -7,7 +7,7 @@ module Rediss
   class Application
     extend T::Sig
     extend T::Helpers
-    include Options
+    include HasOptions
 
     abstract!
 
